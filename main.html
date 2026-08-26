@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الواجهة الإحصائية الإيزيدية</title>
-    <!-- استدعاء خط Cairo الاحترافي -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- خط Cairo واستدعاء خط Noto Serif Yezidi للغة الإيزيدية الخاصة -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Noto+Serif+Yezidi:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-main: #0b111e;
@@ -13,7 +13,6 @@
             --bg-card-hover: #1c2738;
             --primary-gold: #e5a93b;
             --primary-green: #0a9b32;
-            --accent-blue: #3b82f6;
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
             --border-color: #263346;
@@ -25,7 +24,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Cairo', 'Noto Serif Yezidi', sans-serif;
         }
 
         body {
@@ -33,10 +32,9 @@
             color: var(--text-main);
             display: flex;
             min-height: 100vh;
-            direction: rtl;
         }
 
-        /* القائمة الجانبية (Sidebar) */
+        /* Sidebar */
         .sidebar {
             width: 250px;
             background-color: #0e1626;
@@ -52,6 +50,13 @@
             z-index: 100;
         }
 
+        html[dir="ltr"] .sidebar {
+            right: auto;
+            left: 0;
+            border-left: none;
+            border-right: 1px solid var(--border-color);
+        }
+
         .brand {
             text-align: center;
             padding-bottom: 20px;
@@ -59,7 +64,7 @@
         }
 
         .brand-icon {
-            font-size: 32px;
+            font-size: 36px;
             color: var(--primary-gold);
             margin-bottom: 5px;
         }
@@ -104,7 +109,7 @@
             color: var(--text-muted);
         }
 
-        /* المحتوى الرئيسي */
+        /* Main Content Area */
         .main-content {
             margin-right: 250px;
             flex: 1;
@@ -112,7 +117,12 @@
             max-width: 1300px;
         }
 
-        /* الهيدر العلوي */
+        html[dir="ltr"] .main-content {
+            margin-right: 0;
+            margin-left: 250px;
+        }
+
+        /* Header & Language Switcher */
         .header {
             display: flex;
             justify-content: space-between;
@@ -129,12 +139,17 @@
             color: var(--primary-gold);
         }
 
-        .header-title p {
-            font-size: 12px;
-            color: var(--text-muted);
+        .lang-select-box select {
+            background: var(--bg-main);
+            color: var(--primary-gold);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        /* الشبكة الرئيسية (Grid) */
+        /* Dashboard Cards & Layout */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -160,7 +175,7 @@
             gap: 8px;
         }
 
-        /* بطاقة المجموع الكلي */
+        /* Total Banner */
         .total-banner {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border: 1px solid var(--primary-gold);
@@ -197,7 +212,6 @@
             display: block;
         }
 
-        /* أزرار الإجراءات */
         .action-btn {
             width: 100%;
             background: linear-gradient(90deg, #e5a93b, #c78c21);
@@ -214,17 +228,15 @@
 
         .action-btn:hover {
             opacity: 0.9;
-            transform: translateY(-2px);
         }
 
         .action-btn.disabled {
             background: #4b5563;
             color: #9ca3af;
             cursor: not-allowed;
-            transform: none;
         }
 
-        /* الجداول العصريّة */
+        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -240,11 +252,6 @@
         th {
             background: rgba(255,255,255,0.03);
             color: var(--primary-gold);
-            font-weight: 600;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
         }
 
         .total-row {
@@ -253,41 +260,10 @@
             color: var(--primary-gold);
         }
 
-        /* شبكة المناطق */
-        .regions-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .region-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 12px;
-            text-align: center;
-        }
-
-        .region-card .flag { font-size: 22px; }
-        .region-card .name { font-size: 12px; color: var(--text-muted); margin: 4px 0; }
-        .region-card .val { font-size: 18px; font-weight: bold; color: var(--primary-gold); }
-
-        /* النموذج (Form Section) */
-        #formSection {
-            display: none;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
+        /* Form Controls */
+        #formSection { display: none; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
         select, input {
             width: 100%;
             padding: 12px;
@@ -298,76 +274,40 @@
             font-size: 14px;
             outline: none;
         }
+        select:focus, input:focus { border-color: var(--primary-gold); }
 
-        select:focus, input:focus {
-            border-color: var(--primary-gold);
-        }
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-secondary { background: #374151; color: white; border: none; padding: 12px; border-radius: var(--radius-md); flex: 1; cursor: pointer; }
+        #successSection { display: none; text-align: center; padding: 40px 20px; }
 
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn-secondary {
-            background: #374151;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: var(--radius-md);
-            flex: 1;
-            cursor: pointer;
-        }
-
-        /* النافذة المنبثقة للتأكيد */
-        #successSection {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .success-icon {
-            font-size: 50px;
-            color: var(--primary-green);
-            margin-bottom: 15px;
-        }
-
-        /* تجاوب مع الشاشات الصغيرة */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 70px;
-                padding: 15px 5px;
-            }
-            .brand-title, .nav-text, .sidebar-footer {
-                display: none;
-            }
-            .main-content {
-                margin-right: 70px;
-                padding: 15px;
-            }
+            .sidebar { width: 70px; padding: 15px 5px; }
+            .brand-title, .nav-text, .sidebar-footer { display: none; }
+            .main-content { margin-right: 70px; padding: 15px; }
+            html[dir="ltr"] .main-content { margin-left: 70px; margin-right: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- القائمة الجانبية (Sidebar) -->
+    <!-- القائمة الجانبية -->
     <div class="sidebar">
         <div>
             <div class="brand">
                 <div class="brand-icon">☀️</div>
-                <div class="brand-title">الإحصائية الإيزيدية</div>
+                <div class="brand-title" id="txt-app-title">الإحصائية الإيزيدية</div>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a class="nav-link active" onclick="showHome()">
                         <span>🏠</span>
-                        <span class="nav-text">الرئيسية</span>
+                        <span class="nav-text" id="txt-nav-home">الرئيسية</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" onclick="showForm()">
                         <span>➕</span>
-                        <span class="nav-text">إضافة بيانات</span>
+                        <span class="nav-text" id="txt-nav-add">إضافة بيانات</span>
                     </a>
                 </li>
             </ul>
@@ -380,207 +320,108 @@
     <!-- المحتوى الرئيسي -->
     <div class="main-content">
 
-        <!-- الهيدر العلوي -->
+        <!-- الهيدر واختيار اللغة -->
         <div class="header">
             <div class="header-title">
-                <h1>لوحة الإحصائيات العامة</h1>
-                <p>تجميع وتوحيد بيانات المجتمع الإيزيدي بدقة وخصوصية</p>
+                <h1 id="txt-header-title">الواجهة الإحصائية الإيزيدية</h1>
+            </div>
+            <div class="lang-select-box">
+                🌐 <select id="languageSelect" onchange="changeLanguage(this.value)">
+                    <option value="ar">العربية (Arabic)</option>
+                    <option value="ezd">الإيزيدية الخاص (𐺏𐺟𐺆𐺡𐺩 / Êzdîkî)</option>
+                    <option value="en">English</option>
+                </select>
             </div>
         </div>
 
-        <!-- ================= SECTION: HOME ================= -->
+        <!-- الصفحة الرئيسية -->
         <div id="homeSection">
-            
-            <!-- زر الإضافة الرئيسي -->
             <button id="addButton" class="action-btn" onclick="showForm()">
-                ➕ إضافة بيانات عائلة / شخص جديد
+                ➕ <span id="txt-btn-add">إضافة بيانات شخص / عائلة</span>
             </button>
 
-            <!-- الكارت الرئيسي للمجموع الكلي -->
+            <!-- كارت المجموع الكلي -->
             <div class="total-banner">
-                <div style="color: var(--text-muted); font-size: 14px;">👥 المجموع الكلي المسجل</div>
+                <div style="color: var(--text-muted); font-size: 14px;" id="txt-total-pop">المجموع الكلي المسجل</div>
                 <div class="total-number" id="total">0</div>
                 <div class="gender-stats">
                     <div class="gender-box">
                         <span class="num" id="maleTotal">0</span>
-                        <span>👨 ذكور</span>
+                        <span id="txt-male">👨 ذكور</span>
                     </div>
                     <div class="gender-box">
                         <span class="num" id="femaleTotal">0</span>
-                        <span>👩 إناث</span>
+                        <span id="txt-female">👩 إناث</span>
                     </div>
                 </div>
             </div>
 
             <br>
 
-            <!-- شبكة البطاقات الإحصائية -->
             <div class="dashboard-grid">
-
-                <!-- جدول العمر والجنس -->
+                <!-- العمر والجنس -->
                 <div class="card">
-                    <div class="card-title">👨‍👩‍👧 التوزيع حسب العمر والجنس</div>
+                    <div class="card-title" id="txt-title-age">👨‍👩‍👧 العمر والجنس</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>الفئة</th>
-                                <th>ذكر</th>
-                                <th>أنثى</th>
-                                <th>المجموع</th>
+                                <th id="th-cat">الفئة</th>
+                                <th id="th-m">ذكر</th>
+                                <th id="th-f">أنثى</th>
+                                <th id="th-tot">المجموع</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>👶 أطفال</td>
-                                <td id="childMale">0</td>
-                                <td id="childFemale">0</td>
-                                <td id="childTotal">0</td>
-                            </tr>
-                            <tr>
-                                <td>🧑 شباب</td>
-                                <td id="youngMale">0</td>
-                                <td id="youngFemale">0</td>
-                                <td id="youngTotal">0</td>
-                            </tr>
-                            <tr>
-                                <td>👨 رجال</td>
-                                <td id="men">0</td>
-                                <td>—</td>
-                                <td id="menTotal">0</td>
-                            </tr>
-                            <tr>
-                                <td>👩 نساء</td>
-                                <td>—</td>
-                                <td id="women">0</td>
-                                <td id="womenTotal">0</td>
-                            </tr>
-                            <tr>
-                                <td>👴 كبار السن</td>
-                                <td id="oldMale">0</td>
-                                <td id="oldFemale">0</td>
-                                <td id="oldTotal">0</td>
-                            </tr>
-                            <tr class="total-row">
-                                <td>المجموع الكلي</td>
-                                <td id="tableMale">0</td>
-                                <td id="tableFemale">0</td>
-                                <td id="tableTotal">0</td>
-                            </tr>
+                            <tr><td id="td-child">👶 أطفال</td><td id="childMale">0</td><td id="childFemale">0</td><td id="childTotal">0</td></tr>
+                            <tr><td id="td-young">🧑 شباب</td><td id="youngMale">0</td><td id="youngFemale">0</td><td id="youngTotal">0</td></tr>
+                            <tr><td id="td-men">👨 رجال</td><td id="men">0</td><td>—</td><td id="menTotal">0</td></tr>
+                            <tr><td id="td-women">👩 نساء</td><td>—</td><td id="women">0</td><td id="womenTotal">0</td></tr>
+                            <tr><td id="td-old">👴 كبار السن</td><td id="oldMale">0</td><td id="oldFemale">0</td><td id="oldTotal">0</td></tr>
+                            <tr class="total-row"><td id="td-all-tot">المجموع الكلي</td><td id="tableMale">0</td><td id="tableFemale">0</td><td id="tableTotal">0</td></tr>
                         </tbody>
                     </table>
                 </div>
 
-                <!-- جدول الطبقات الدينية/الاجتماعية -->
+                <!-- الطبقات الإيزيدية -->
                 <div class="card">
-                    <div class="card-title">👥 الشيخ والبير والمريد</div>
+                    <div class="card-title" id="txt-title-class">👥 الشيخ والبير والمريد</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>الطبقة</th>
-                                <th>ذكر</th>
-                                <th>أنثى</th>
-                                <th>أطفال</th>
-                                <th>الكل</th>
+                                <th id="th-cls">الطبقة</th>
+                                <th id="th-cm">ذكر</th>
+                                <th id="th-cf">أنثى</th>
+                                <th id="th-cc">أطفال</th>
+                                <th id="th-ctot">الكل</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>شيخ</td>
-                                <td id="sheikhMale">0</td>
-                                <td id="sheikhFemale">0</td>
-                                <td id="sheikhChildren">0</td>
-                                <td id="sheikhTotal">0</td>
-                            </tr>
-                            <tr>
-                                <td>بير</td>
-                                <td id="pirMale">0</td>
-                                <td id="pirFemale">0</td>
-                                <td id="pirChildren">0</td>
-                                <td id="pirTotal">0</td>
-                            </tr>
-                            <tr>
-                                <td>مريد</td>
-                                <td id="muridMale">0</td>
-                                <td id="muridFemale">0</td>
-                                <td id="muridChildren">0</td>
-                                <td id="muridTotal">0</td>
-                            </tr>
-                            <tr class="total-row">
-                                <td>المجموع الكلي</td>
-                                <td id="classMale">0</td>
-                                <td id="classFemale">0</td>
-                                <td id="classChildren">0</td>
-                                <td id="classTotal">0</td>
-                            </tr>
+                            <tr><td id="td-sheikh">شيخ</td><td id="sheikhMale">0</td><td id="sheikhFemale">0</td><td id="sheikhChildren">0</td><td id="sheikhTotal">0</td></tr>
+                            <tr><td id="td-pir">بير</td><td id="pirMale">0</td><td id="pirFemale">0</td><td id="pirChildren">0</td><td id="pirTotal">0</td></tr>
+                            <tr><td id="td-murid">مريد</td><td id="muridMale">0</td><td id="muridFemale">0</td><td id="muridChildren">0</td><td id="muridTotal">0</td></tr>
+                            <tr class="total-row"><td id="td-call-tot">المجموع الكلي</td><td id="classMale">0</td><td id="classFemale">0</td><td id="classChildren">0</td><td id="classTotal">0</td></tr>
                         </tbody>
                     </table>
                 </div>
-
-                <!-- جدول الحالة الاجتماعية -->
-                <div class="card">
-                    <div class="card-title">💍 الحالة الاجتماعية</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>الحالة</th>
-                                <th>العدد</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>متزوج</td><td id="marriedMale">0</td></tr>
-                            <tr><td>متزوجة</td><td id="marriedFemale">0</td></tr>
-                            <tr><td>أعزب</td><td id="singleMale">0</td></tr>
-                            <tr><td>عزباء</td><td id="singleFemale">0</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- كارت التوزيع الجغرافي -->
-                <div class="card">
-                    <div class="card-title">🌍 التوزيع حسب Region / البلدان</div>
-                    <div class="regions-grid">
-                        <div class="region-card">
-                            <div class="flag">🇮🇶</div>
-                            <div class="name">شنكال</div>
-                            <div class="val" id="sinjar">0</div>
-                        </div>
-                        <div class="region-card">
-                            <div class="flag">🇸🇾</div>
-                            <div class="name">سوريا</div>
-                            <div class="val" id="syria">0</div>
-                        </div>
-                        <div class="region-card">
-                            <div class="flag">🇬🇪</div>
-                            <div class="name">جورجيا</div>
-                            <div class="val" id="georgia">0</div>
-                        </div>
-                        <div class="region-card">
-                            <div class="flag">🇷🇺</div>
-                            <div class="name">روسيا</div>
-                            <div class="val" id="russia">0</div>
-                        </div>
-                        <div class="region-card">
-                            <div class="flag">🇦🇲</div>
-                            <div class="name">أرمينيا</div>
-                            <div class="val" id="armenia">0</div>
-                        </div>
-                        <div class="region-card">
-                            <div class="flag">🇹🇷</div>
-                            <div class="name">تركيا</div>
-                            <div class="val" id="turkey">0</div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
 
-        <!-- ================= SECTION: FORM ================= -->
+        <!-- نموذج إدخال البيانات الحساس والاسم وتاريخ الميلاد -->
         <div id="formSection" class="card" style="max-width: 600px; margin: 0 auto;">
-            <div class="card-title">➕ إدخال بيانات جديدة</div>
+            <div class="card-title" id="txt-form-head">👤 معلوماتك الشخصية والإحصائية</div>
             
             <div class="form-group">
-                <label>📍 اختر المنطقة / البلد</label>
+                <label id="lbl-fullname">✍️ الاسم الكامل (الثلاثي):</label>
+                <input type="text" id="fullName" placeholder="اكتب اسمك الثلاثي بأي لغة تريدها...">
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-birthdate">📅 تاريخ الميلاد:</label>
+                <input type="date" id="birthDate">
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-region">📍 اختر المنطقة / البلد:</label>
                 <select id="region">
                     <option value="">اختر المنطقة</option>
                     <option value="sinjar">🇮🇶 شنكال — Shingal</option>
@@ -593,7 +434,7 @@
             </div>
 
             <div class="form-group">
-                <label>👤 الفئة العمرية والجنس</label>
+                <label id="lbl-person">👤 الفئة العمرية والجنس:</label>
                 <select id="person">
                     <option value="">اختر الفئة</option>
                     <option value="childMale">👦 طفل — Boy</option>
@@ -608,7 +449,7 @@
             </div>
 
             <div class="form-group">
-                <label>👥 الطبقة الدينية / الاجتماعية</label>
+                <label id="lbl-class">👥 الطبقة (شيخ / بير / مريد):</label>
                 <select id="classType">
                     <option value="">اختر الطبقة</option>
                     <option value="sheikh">شيخ — Sheikh</option>
@@ -618,7 +459,7 @@
             </div>
 
             <div class="form-group">
-                <label>💍 الحالة الاجتماعية</label>
+                <label id="lbl-marital">💍 الحالة الاجتماعية:</label>
                 <select id="marital" onchange="marriageChanged()">
                     <option value="">اختر الحالة</option>
                     <option value="marriedMale">متزوج — Married Man</option>
@@ -628,64 +469,185 @@
                 </select>
             </div>
 
-            <!-- خيارات الأطفال عند اختيار متزوج/متزوجة -->
             <div id="childrenBox" style="display:none; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
                 <div class="form-group">
-                    <label>👶 عدد الأطفال</label>
+                    <label id="lbl-children-count">👶 عدد الأطفال:</label>
                     <select id="children" onchange="childrenChanged()">
-                        <option value="">اختر العدد</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
+                        <option value="">0</option>
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                        <option value="4">4</option><option value="5">5</option><option value="6">6</option>
                     </select>
                 </div>
-
                 <div id="childrenGender" style="display:none; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <div class="form-group">
-                        <label>👦 عدد الأولاد</label>
-                        <input type="number" id="boys" min="0" value="0">
-                    </div>
-                    <div class="form-group">
-                        <label>👧 عدد البنات</label>
-                        <input type="number" id="girls" min="0" value="0">
-                    </div>
+                    <div class="form-group"><label id="lbl-boys">👦 ذكور:</label><input type="number" id="boys" min="0" value="0"></div>
+                    <div class="form-group"><label id="lbl-girls">👧 إناث:</label><input type="number" id="girls" min="0" value="0"></div>
                 </div>
             </div>
 
             <div class="btn-group">
-                <button class="action-btn" onclick="addFamily()" style="margin-bottom: 0;">✅ حفظ البيانات</button>
-                <button class="btn-secondary" onclick="showHome()">إلغاء</button>
+                <button class="action-btn" onclick="addFamily()" style="margin-bottom: 0;" id="btn-save">✅ حفظ البيانات</button>
+                <button class="btn-secondary" onclick="showHome()" id="btn-cancel">إلغاء</button>
             </div>
         </div>
 
-        <!-- ================= SECTION: SUCCESS ================= -->
+        <!-- رسالة النجاح -->
         <div id="successSection" class="card">
-            <div class="success-icon">✓</div>
-            <h2>تم حفظ البيانات بنجاح!</h2>
-            <p style="color: var(--text-muted); margin: 10px 0 20px;">شكراً لمساهمتك في دقة البيانات الإحصائية.</p>
-            <button class="action-btn" onclick="showHome()">العودة إلى الواجهة الرئيسية</button>
+            <div style="font-size: 50px; color: var(--primary-green);">✓</div>
+            <h2 id="txt-success-head">تم حفظ البيانات بنجاح!</h2>
+            <p style="color: var(--text-muted); margin: 10px 0 20px;" id="txt-success-msg">شكراً لمساهمتك في دقة البيانات الإحصائية الإيزيدية.</p>
+            <button class="action-btn" onclick="showHome()" id="btn-back">العودة إلى الواجهة الرئيسية</button>
         </div>
 
     </div>
 
-    <!-- البرمجة والتفاعل (JavaScript) -->
     <script>
+        // قاموس الترجمة متعدد اللغات (عربي - إيزيدي خاص - إنكليزي)
+        const translations = {
+            ar: {
+                dir: "rtl",
+                appTitle: "الإحصائية الإيزيدية",
+                navHome: "الرئيسية",
+                navAdd: "إضافة بيانات",
+                headerTitle: "الواجهة الإحصائية الإيزيدية",
+                btnAdd: "إضافة بيانات شخص / عائلة",
+                totalPop: "المجموع الكلي المسجل",
+                male: "👨 ذكور",
+                female: "👩 إناث",
+                titleAge: "👨‍👩‍👧 العمر والجنس",
+                cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع",
+                child: "👶 أطفال", young: "🧑 شباب", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع الكلي",
+                titleClass: "👥 الشيخ والبير والمريد",
+                cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل",
+                sheikh: "شيخ", pir: "بير", murid: "مريد",
+                formHead: "👤 معلوماتك الشخصية والإحصائية",
+                lblFullName: "✍️ الاسم الكامل (الثلاثي):",
+                lblBirthDate: "📅 تاريخ الميلاد:",
+                lblRegion: "📍 اختر المنطقة / البلد:",
+                lblPerson: "👤 الفئة العمرية والجنس:",
+                lblClass: "👥 الطبقة (شيخ / بير / مريد):",
+                lblMarital: "💍 الحالة الاجتماعية:",
+                lblChildrenCount: "👶 عدد الأطفال:",
+                lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:",
+                btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء",
+                successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية"
+            },
+            ezd: {
+                dir: "rtl",
+                appTitle: "𐺏𐺟𐺆𐺡𐺩 - Êzdîkî",
+                navHome: "Malper / 𐺡a𐺡dab",
+                navAdd: "Zêdekirin / 𐺝𐺬da𐺲ab",
+                headerTitle: "𐺏𐺟𐺆𐺡𐺩 - Amarên Civaka Êzdî",
+                btnAdd: "Zêdekirina Zanînan / 𐺝𐺬da𐺲ab",
+                totalPop: "Hemû Hejmar / 𐺧𐺦𐺡𐺵 𐺨𐺥𐺩𐺡a𐺥",
+                male: "👨 Mêr / 𐺡𐺨𐺥",
+                female: "👩 Jin / 𐺨ab",
+                titleAge: "👨‍👩‍👧 Temen u Rêgez / b𐺨𐺡𐺨b",
+                cat: "Fê / 𐺥𐺨", m: "Mêr", f: "Jin", tot: "Tevayî",
+                child: "👶 Zarok / 𐺝a𐺥ff", young: "🧑 Ciwan / 𐺝𐺨𐺥ab", men: "👨 Mêr", women: "👩 Jin", old: "👴 Kal û Pîr", allTot: "Tevayî",
+                titleClass: "👥 Şêx, Pîr û Mirîd",
+                cls: "Tabaqa", cm: "Mêr", cf: "Jin", cc: "Zarok", ctot: "Hemû",
+                sheikh: "Şêx / 𐺉𐺨a𐺧", pir: "Pîr / 𐺔𐺨𐺥", murid: "Mirîd / 𐺡𐺨𐺥𐺨d",
+                formHead: "👤 Nav u Zanîn / ba𐺥 𐺡𐺵 𐺨𐺥𐺩𐺡a𐺥",
+                lblFullName: "✍️ Navê Sêyan (الاسم الثلاثي):",
+                lblBirthDate: "📅 Dîroka Bûnê:",
+                lblRegion: "📍 Herêm / 𐺧𐺨𐺥𐺩𐺡:",
+                lblPerson: "👤 Rêgez / 𐺥𐺨𐺥𐺨𐺷:",
+                lblClass: "👥 Tabaqa (Şêx, Pîr, Mirîd):",
+                lblMarital: "💍 Rewşa Zewacê:",
+                lblChildrenCount: "👶 Hejmara Zarokan:",
+                lblBoys: "👦 Kuř:", lblGirls: "👧 Keç:",
+                btnSave: "✅ Tomarkirin / b𐺨𐺥𐺨𐺧", btnCancel: "Betal",
+                successHead: "Zanîn hatin tomarkirin!", successMsg: "Spas ji bo alîkariya we.", btnBack: "Vegere Malperê"
+            },
+            en: {
+                dir: "ltr",
+                appTitle: "Yazidi Census",
+                navHome: "Home",
+                navAdd: "Add Data",
+                headerTitle: "Yazidi Community Statistics",
+                btnAdd: "Add Person / Family Data",
+                totalPop: "Total Registered Population",
+                male: "👨 Male",
+                female: "👩 Female",
+                titleAge: "👨‍👩‍👧 Age & Gender",
+                cat: "Category", m: "Male", f: "Female", tot: "Total",
+                child: "👶 Children", young: "🧑 Youth", men: "👨 Men", women: "👩 Women", old: "👴 Elderly", allTot: "Grand Total",
+                titleClass: "👥 Sheikh, Pir & Murid",
+                cls: "Class", cm: "Male", cf: "Female", cc: "Children", ctot: "Total",
+                sheikh: "Sheikh", pir: "Pir", murid: "Murid",
+                formHead: "👤 Personal & Statistical Info",
+                lblFullName: "✍️ Full Name (3 Words):",
+                lblBirthDate: "📅 Date of Birth:",
+                lblRegion: "📍 Select Region / Country:",
+                lblPerson: "👤 Age & Gender Group:",
+                lblClass: "👥 Social Class:",
+                lblMarital: "💍 Marital Status:",
+                lblChildrenCount: "👶 Number of Children:",
+                lblBoys: "👦 Boys:", lblGirls: "👧 Girls:",
+                btnSave: "✅ Save Info", btnCancel: "Cancel",
+                successHead: "Data Saved Successfully!", successMsg: "Thank you for contributing to the statistics.", btnBack: "Back to Home"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const t = translations[lang];
+            document.getElementById("htmlTag").dir = t.dir;
+
+            document.getElementById("txt-app-title").textContent = t.appTitle;
+            document.getElementById("txt-nav-home").textContent = t.navHome;
+            document.getElementById("txt-nav-add").textContent = t.navAdd;
+            document.getElementById("txt-header-title").textContent = t.headerTitle;
+            document.getElementById("txt-btn-add").textContent = t.btnAdd;
+            document.getElementById("txt-total-pop").textContent = t.totalPop;
+            document.getElementById("txt-male").textContent = t.male;
+            document.getElementById("txt-female").textContent = t.female;
+
+            document.getElementById("txt-title-age").textContent = t.titleAge;
+            document.getElementById("th-cat").textContent = t.cat;
+            document.getElementById("th-m").textContent = t.m;
+            document.getElementById("th-f").textContent = t.f;
+            document.getElementById("th-tot").textContent = t.tot;
+            document.getElementById("td-child").textContent = t.child;
+            document.getElementById("td-young").textContent = t.young;
+            document.getElementById("td-men").textContent = t.men;
+            document.getElementById("td-women").textContent = t.women;
+            document.getElementById("td-old").textContent = t.old;
+            document.getElementById("td-all-tot").textContent = t.allTot;
+
+            document.getElementById("txt-title-class").textContent = t.titleClass;
+            document.getElementById("th-cls").textContent = t.cls;
+            document.getElementById("th-cm").textContent = t.cm;
+            document.getElementById("th-cf").textContent = t.cf;
+            document.getElementById("th-cc").textContent = t.cc;
+            document.getElementById("th-ctot").textContent = t.ctot;
+            document.getElementById("td-sheikh").textContent = t.sheikh;
+            document.getElementById("td-pir").textContent = t.pir;
+            document.getElementById("td-murid").textContent = t.murid;
+            document.getElementById("td-call-tot").textContent = t.allTot;
+
+            document.getElementById("txt-form-head").textContent = t.formHead;
+            document.getElementById("lbl-fullname").textContent = t.lblFullName;
+            document.getElementById("lbl-birthdate").textContent = t.lblBirthDate;
+            document.getElementById("lbl-region").textContent = t.lblRegion;
+            document.getElementById("lbl-person").textContent = t.lblPerson;
+            document.getElementById("lbl-class").textContent = t.lblClass;
+            document.getElementById("lbl-marital").textContent = t.lblMarital;
+            document.getElementById("lbl-children-count").textContent = t.lblChildrenCount;
+            document.getElementById("lbl-boys").textContent = t.lblBoys;
+            document.getElementById("lbl-girls").textContent = t.lblGirls;
+            document.getElementById("btn-save").textContent = t.btnSave;
+            document.getElementById("btn-cancel").textContent = t.btnCancel;
+            document.getElementById("txt-success-head").textContent = t.successHead;
+            document.getElementById("txt-success-msg").textContent = t.successMsg;
+            document.getElementById("btn-back").textContent = t.btnBack;
+        }
+
+        // Logic JavaScript الأساسية للحفظ والتأثيرات
         let data = JSON.parse(localStorage.getItem("yazidiData")) || {
-            total: 0, male: 0, female: 0,
-            childMale: 0, childFemale: 0, youngMale: 0, youngFemale: 0,
+            total: 0, male: 0, female: 0, childMale: 0, childFemale: 0, youngMale: 0, youngFemale: 0,
             men: 0, women: 0, oldMale: 0, oldFemale: 0, boys: 0, girls: 0,
-            sheikhMale: 0, sheikhFemale: 0, sheikhChildren: 0,
-            pirMale: 0, pirFemale: 0, pirChildren: 0,
-            muridMale: 0, muridFemale: 0, muridChildren: 0,
-            marriedMale: 0, marriedFemale: 0, singleMale: 0, singleFemale: 0,
+            sheikhMale: 0, sheikhFemale: 0, sheikhChildren: 0, pirMale: 0, pirFemale: 0, pirChildren: 0,
+            muridMale: 0, muridFemale: 0, muridChildren: 0, marriedMale: 0, marriedFemale: 0, singleMale: 0, singleFemale: 0,
             sinjar: 0, syria: 0, georgia: 0, russia: 0, armenia: 0, turkey: 0
         };
 
@@ -699,7 +661,7 @@
 
         function showForm() {
             if (alreadySubmitted) {
-                alert("لقد قمت بإدخال البيانات مسبقاً.");
+                alert("لقد قمت بإدخال بياناتك مسبقاً.");
                 return;
             }
             document.getElementById("homeSection").style.display = "none";
@@ -709,12 +671,7 @@
 
         function marriageChanged() {
             let val = document.getElementById("marital").value;
-            if (val === "marriedMale" || val === "marriedFemale") {
-                document.getElementById("childrenBox").style.display = "block";
-            } else {
-                document.getElementById("childrenBox").style.display = "none";
-                document.getElementById("childrenGender").style.display = "none";
-            }
+            document.getElementById("childrenBox").style.display = (val === "marriedMale" || val === "marriedFemale") ? "block" : "none";
         }
 
         function childrenChanged() {
@@ -723,35 +680,26 @@
         }
 
         function addFamily() {
-            if (alreadySubmitted) {
-                alert("لقد سجلت مشاركتك مسبقاً.");
-                return;
-            }
-
+            let fullName = document.getElementById("fullName").value.trim();
+            let birthDate = document.getElementById("birthDate").value;
             let region = document.getElementById("region").value;
             let person = document.getElementById("person").value;
             let classType = document.getElementById("classType").value;
             let marital = document.getElementById("marital").value;
 
-            if (!region || !person || !classType || !marital) {
-                alert("يرجى ملء جميع الحقول المطلوب الإجابة عنها.");
+            if (!fullName || !birthDate || !region || !person || !classType || !marital) {
+                alert("يرجى ملء جميع الحقول المطلوبة (الاسم، تاريخ الميلاد، المنطقة...).");
                 return;
             }
 
             let male = person === "childMale" || person === "youngMale" || person === "man" || person === "oldMale";
             let female = person === "childFemale" || person === "youngFemale" || person === "woman" || person === "oldFemale";
-
             let children = 0, boys = 0, girls = 0;
 
             if (marital === "marriedMale" || marital === "marriedFemale") {
-                let childrenVal = document.getElementById("children").value;
-                if (childrenVal === "") {
-                    alert("يرجى تحديد عدد الأطفال.");
-                    return;
-                }
-                children = Number(childrenVal);
-                boys = Number(document.getElementById("boys").value);
-                girls = Number(document.getElementById("girls").value);
+                children = Number(document.getElementById("children").value || 0);
+                boys = Number(document.getElementById("boys").value || 0);
+                girls = Number(document.getElementById("girls").value || 0);
 
                 if (boys + girls !== children) {
                     alert("مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال المكتوب.");
@@ -759,7 +707,6 @@
                 }
             }
 
-            // تحديث البيانات الأساسية
             data.total += 1 + children;
             if (male) data.male++;
             if (female) data.female++;
@@ -768,10 +715,7 @@
             data.female += girls;
             data.childMale += boys;
             data.childFemale += girls;
-            data.boys += boys;
-            data.girls += girls;
 
-            // العمر
             if (person === "childMale") data.childMale++;
             if (person === "childFemale") data.childFemale++;
             if (person === "youngMale") data.youngMale++;
@@ -781,9 +725,7 @@
             if (person === "oldMale") data.oldMale++;
             if (person === "oldFemale") data.oldFemale++;
 
-            // المناطق والتأثير الديني
             data[region] += 1 + children;
-            data[marital]++;
 
             if (classType === "sheikh") {
                 if (male) data.sheikhMale++;
@@ -805,7 +747,6 @@
 
             update();
             lockAddButton();
-
             document.getElementById("formSection").style.display = "none";
             document.getElementById("successSection").style.display = "block";
         }
@@ -813,7 +754,6 @@
         function lockAddButton() {
             let btn = document.getElementById("addButton");
             btn.classList.add("disabled");
-            btn.innerHTML = "✅ تم تسجيل البيانات بنجاح";
             btn.onclick = function() { alert("تم تسجيل مشاركتك مسبقاً."); };
         }
 
@@ -821,59 +761,24 @@
             set("total", data.total);
             set("maleTotal", data.male);
             set("femaleTotal", data.female);
-
             set("childMale", data.childMale);
             set("childFemale", data.childFemale);
             set("childTotal", data.childMale + data.childFemale);
-
             set("youngMale", data.youngMale);
             set("youngFemale", data.youngFemale);
             set("youngTotal", data.youngMale + data.youngFemale);
-
-            set("men", data.men);
-            set("menTotal", data.men);
-            set("women", data.women);
-            set("womenTotal", data.women);
-
-            set("oldMale", data.oldMale);
-            set("oldFemale", data.oldFemale);
+            set("men", data.men); set("menTotal", data.men);
+            set("women", data.women); set("womenTotal", data.women);
+            set("oldMale", data.oldMale); set("oldFemale", data.oldFemale);
             set("oldTotal", data.oldMale + data.oldFemale);
-
-            set("tableMale", data.male);
-            set("tableFemale", data.female);
-            set("tableTotal", data.total);
-
-            set("sheikhMale", data.sheikhMale);
-            set("sheikhFemale", data.sheikhFemale);
-            set("sheikhChildren", data.sheikhChildren);
-            set("sheikhTotal", data.sheikhMale + data.sheikhFemale + data.sheikhChildren);
-
-            set("pirMale", data.pirMale);
-            set("pirFemale", data.pirFemale);
-            set("pirChildren", data.pirChildren);
-            set("pirTotal", data.pirMale + data.pirFemale + data.pirChildren);
-
-            set("muridMale", data.muridMale);
-            set("muridFemale", data.muridFemale);
-            set("muridChildren", data.muridChildren);
-            set("muridTotal", data.muridMale + data.muridFemale + data.muridChildren);
-
+            set("tableMale", data.male); set("tableFemale", data.female); set("tableTotal", data.total);
+            set("sheikhMale", data.sheikhMale); set("sheikhFemale", data.sheikhFemale); set("sheikhChildren", data.sheikhChildren); set("sheikhTotal", data.sheikhMale + data.sheikhFemale + data.sheikhChildren);
+            set("pirMale", data.pirMale); set("pirFemale", data.pirFemale); set("pirChildren", data.pirChildren); set("pirTotal", data.pirMale + data.pirFemale + data.pirChildren);
+            set("muridMale", data.muridMale); set("muridFemale", data.muridFemale); set("muridChildren", data.muridChildren); set("muridTotal", data.muridMale + data.muridFemale + data.muridChildren);
             set("classMale", data.sheikhMale + data.pirMale + data.muridMale);
             set("classFemale", data.sheikhFemale + data.pirFemale + data.muridFemale);
             set("classChildren", data.sheikhChildren + data.pirChildren + data.muridChildren);
             set("classTotal", data.total);
-
-            set("marriedMale", data.marriedMale);
-            set("marriedFemale", data.marriedFemale);
-            set("singleMale", data.singleMale);
-            set("singleFemale", data.singleFemale);
-
-            set("sinjar", data.sinjar);
-            set("syria", data.syria);
-            set("georgia", data.georgia);
-            set("russia", data.russia);
-            set("armenia", data.armenia);
-            set("turkey", data.turkey);
         }
 
         function set(id, val) {
@@ -881,7 +786,6 @@
             if (el) el.textContent = val;
         }
 
-        // تشغيل التحديث عند بداية التحميل
         update();
         if (alreadySubmitted) lockAddButton();
     </script>
