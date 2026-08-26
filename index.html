@@ -220,51 +220,21 @@
             margin-bottom: 20px;
         }
 
-        .action-btn:hover {
-            opacity: 0.9;
-        }
+        .action-btn:hover { opacity: 0.9; }
+        .action-btn.disabled { background: #4b5563; color: #9ca3af; cursor: not-allowed; }
 
-        .action-btn.disabled {
-            background: #4b5563;
-            color: #9ca3af;
-            cursor: not-allowed;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-        th, td {
-            padding: 10px 12px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background: rgba(255,255,255,0.03);
-            color: var(--primary-gold);
-        }
-
-        .total-row {
-            background: rgba(229, 169, 59, 0.1);
-            font-weight: bold;
-            color: var(--primary-gold);
-        }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td { padding: 10px 12px; text-align: center; border-bottom: 1px solid var(--border-color); }
+        th { background: rgba(255,255,255,0.03); color: var(--primary-gold); }
+        .total-row { background: rgba(229, 169, 59, 0.1); font-weight: bold; color: var(--primary-gold); }
 
         #formSection { display: none; }
         .form-group { margin-bottom: 15px; }
         label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
         select, input {
-            width: 100%;
-            padding: 12px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            background: var(--bg-main);
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
+            width: 100%; padding: 12px; border-radius: var(--radius-md);
+            border: 1px solid var(--border-color); background: var(--bg-main);
+            color: var(--text-main); font-size: 14px; outline: none;
         }
         select:focus, input:focus { border-color: var(--primary-gold); }
 
@@ -285,7 +255,7 @@
     <div class="sidebar">
         <div>
             <div class="brand">
-                <div class="brand-icon">☀️</div>
+                <div class="brand-icon">𒀭</div>
                 <div class="brand-title" id="txt-app-title">الإحصائية الإيزيدية</div>
             </div>
             <ul class="nav-menu">
@@ -320,8 +290,8 @@
                     <option value="ezd">𐺏𐺟𐺆𐺡𐺩 (Êzdîkî)</option>
                     <option value="en">English</option>
                     <option value="de">Deutsch</option>
+                    <option value="nl">Nederlands</option>
                     <option value="fr">Français</option>
-                 <option value="nl">Nederlands</option>
                     <option value="es">Español</option>
                     <option value="ru">Русский</option>
                 </select>
@@ -495,14 +465,80 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
     <script>
-        // إعدادات Firebase الخاصة بمشروعك
         const firebaseConfig = {
             databaseURL: "https://ezidi-f97ea-default-rtdb.firebaseio.com"
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
+        // ⬇️ يمكنك تعديل نصوص اللغة الإيزيدية مباشرة من هذا القسم ⬇️
         const translations = {
+            ezd: {
+                dir: "rtl", 
+                appTitle: "𐺏𐺟𐺆𐺡𐺩", 
+                navHome: "Malper", 
+                navAdd: "Zêdekirin", 
+                headerTitle: "𐺏𐺟𐺆𐺡𐺩 - Amarên Civakê",
+                btnAdd: "Zêdekirina Zanînan", 
+                totalPop: "Hemû Hejmar", 
+                male: "👨 Mêr", 
+                female: "👩 Jin", 
+                titleAge: "👨‍👩‍👧 Temen u Rêgez",
+                cat: "Fê", 
+                m: "Mêr", 
+                f: "Jin", 
+                tot: "Tevayî", 
+                child: "👶 Zarok", 
+                young: "🧑 Ciwan", 
+                men: "👨 Mêr", 
+                women: "👩 Jin",
+                old: "👴 Kal û Pîr", 
+                allTot: "Tevayî", 
+                titleClass: "👥 Şêx, Pîr û Mirîd", 
+                cls: "Tabaqa", 
+                cm: "Mêr", 
+                cf: "Jin", 
+                cc: "Zarok", 
+                ctot: "Hemû",
+                sheikh: "Şêx", 
+                pir: "Pîr", 
+                murid: "Mirîd", 
+                formHead: "👤 Nav u Zanîn", 
+                lblFullName: "✍️ Navê Sêyan:", 
+                inputHolder: "Navê sêyan binivîse...",
+                lblBirthDate: "📅 Dîroka Bûnê:", 
+                lblRegion: "📍 Herêm / Welat:", 
+                lblPerson: "👤 Temen u Rêgez:", 
+                lblClass: "👥 Tabaqa Civakî:",
+                lblMarital: "💍 Rewşa Zewacê:", 
+                lblChildrenCount: "👶 Hejmara Zarokan:", 
+                lblBoys: "👦 Kuř:", 
+                lblGirls: "👧 Keç:",
+                btnSave: "✅ Tomarkirin", 
+                btnCancel: "Betal", 
+                successHead: "Zanîn hatin tomarkirin!", 
+                successMsg: "Spas ji bo alîkariya we.",
+                btnBack: "Vegere Malperê", 
+                optRegDef: "Herêmê hilbijêre", 
+                optPerDef: "Kategoriyê hilbijêre", 
+                optClsDef: "Tabaqê hilbijêre", 
+                optMarDef: "Rewşê hilbijêre",
+                optCm: "👦 Kurk", 
+                optCf: "👧 Keçik", 
+                optYm: "🧑 Lawik", 
+                optYf: "🧑 Keç", 
+                optM: "👨 Mêr", 
+                optW: "👩 Jin", 
+                optOm: "👴 Kal", 
+                optOf: "👵 Pîr",
+                optSheikh: "Şêx", 
+                optPir: "Pîr", 
+                optMurid: "Mirîd", 
+                optMm: "Zewicî (Mêr)", 
+                optMf: "Zewicî (Jin)", 
+                optSm: "Ezeb (Mêr)", 
+                optSf: "Ezeb (Jin)"
+            },
             ar: {
                 dir: "rtl", appTitle: "الإحصائية الإيزيدية", navHome: "الرئيسية", navAdd: "إضافة بيانات",
                 headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل",
@@ -518,18 +554,19 @@
                 optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن",
                 optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج", optMf: "متزوجة", optSm: "أعزب", optSf: "عزباء"
             },
-            ezd: {
-                dir: "rtl", appTitle: "𐺏𐺟𐺆𐺡𐺩", navHome: "Malper", navAdd: "Zêdekirin", headerTitle: "𐺏𐺟𐺆𐺡𐺩 - Amarên Civakê",
-                btnAdd: "Zêdekirina Zanînan", totalPop: "Hemû Hejmar", male: "👨 Mêr", female: "👩 Jin", titleAge: "👨‍👩‍👧 Temen u Rêgez",
-                cat: "Fê", m: "Mêr", f: "Jin", tot: "Tevayî", child: "👶 Zarok", young: "🧑 Ciwan", men: "👨 Mêr", women: "👩 Jin",
-                old: "👴 Kal û Pîr", allTot: "Tevayî", titleClass: "👥 Şêx, Pîr û Mirîd", cls: "Tabaqa", cm: "Mêr", cf: "Jin", cc: "Zarok", ctot: "Hemû",
-                sheikh: "Şêx", pir: "Pîr", murid: "Mirîd", formHead: "👤 Nav u Zanîn", lblFullName: "✍️ Navê Sêyan:", inputHolder: "Navê sêyan binivîse...",
-                lblBirthDate: "📅 Dîroka Bûnê:", lblRegion: "📍 Herêm / Welat:", lblPerson: "👤 Temen u Rêgez:", lblClass: "👥 Tabaqa Civakî:",
-                lblMarital: "💍 Rewşa Zewacê:", lblChildrenCount: "👶 Hejmara Zarokan:", lblBoys: "👦 Kuř:", lblGirls: "👧 Keç:",
-                btnSave: "✅ Tomarkirin", btnCancel: "Betal", successHead: "Zanîn hatin tomarkirin!", successMsg: "Spas ji bo alîkariya we.",
-                btnBack: "Vegere Malperê", optRegDef: "Herêmê hilbijêre", optPerDef: "Kategoriyê hilbijêre", optClsDef: "Tabaqê hilbijêre", optMarDef: "Rewşê hilbijêre",
-                optCm: "👦 Kurk", optCf: "👧 Keçik", optYm: "🧑 Lawik", optYf: "🧑 Keç", optM: "👨 Mêr", optW: "👩 Jin", optOm: "👴 Kal", optOf: "👵 Pîr",
-                optSheikh: "Şêx", optPir: "Pîr", optMurid: "Mirîd", optMm: "Zewicî (Mêr)", optMf: "Zewicî (Jin)", optSm: "Ezeb (Mêr)", optSf: "Ezeb (Jin)"
+            nl: {
+                dir: "ltr", appTitle: "Jezidische Statistieken", navHome: "Startpagina", navAdd: "Gegevens toevoegen", headerTitle: "Jezidische Bevolkingsstatistieken",
+                btnAdd: "Persoons- / Familiegegevens toevoegen", totalPop: "Totaal Geregistreerde Bevolking", male: "👨 Mannen", female: "👩 Vrouwen",
+                titleAge: "👨‍👩‍👧 Leeftijd & Geslacht", cat: "Categorie", m: "Man", f: "Vrouw", tot: "Totaal", child: "👶 Kinderen", young: "🧑 Jongeren",
+                men: "👨 Mannen", women: "👩 Vrouwen", old: "👴 Ouderen", allTot: "Eindtotaal", titleClass: "👥 Sjeik, Pir & Murid",
+                cls: "Kaste", cm: "Man", cf: "Vrouw", cc: "Kinderen", ctot: "Totaal", sheikh: "Sjeik", pir: "Pir", murid: "Murid",
+                formHead: "👤 Persoonlijke Informatie", lblFullName: "✍️ Volledige Naam:", inputHolder: "Voer volledige naam in...",
+                lblBirthDate: "📅 Geboortedatum:", lblRegion: "📍 Selecteer Regio / Land:", lblPerson: "👤 Leeftijd & Geslachtsgroep:",
+                lblClass: "👥 Sociale Kaste:", lblMarital: "💍 Burgerlijke Staat:", lblChildrenCount: "👶 Aantal Kinderen:", lblBoys: "👦 Jongens:", lblGirls: "👧 Meisjes:",
+                btnSave: "✅ Opslaan", btnCancel: "Annuleren", successHead: "Gegevens Succesvol Opgeslagen!", successMsg: "Bedankt voor uw bijdrage.",
+                btnBack: "Terug naar Startpagina", optRegDef: "Selecteer Regio", optPerDef: "Selecteer Categorie", optClsDef: "Selecteer Kaste", optMarDef: "Selecteer Status",
+                optCm: "👦 Jongen", optCf: "👧 Meisje", optYm: "🧑 Jonge Man", optYf: "🧑 Jonge Vrouw", optM: "👨 Man", optW: "👩 Vrouw", optOm: "👴 Oudere Man", optOf: "👵 Oudere Vrouw",
+                optSheikh: "Sjeik", optPir: "Pir", optMurid: "Murid", optMm: "Getrouwd (Man)", optMf: "Getrouwd (Vrouw)", optSm: "Ongehuwd (Man)", optSf: "Ongehuwd (Vrouw)"
             },
             en: {
                 dir: "ltr", appTitle: "Yazidi Census", navHome: "Home", navAdd: "Add Data", headerTitle: "Yazidi Population Statistics",
@@ -537,7 +574,7 @@
                 titleAge: "👨‍👩‍👧 Age & Gender", cat: "Category", m: "Male", f: "Female", tot: "Total", child: "👶 Children", young: "🧑 Youth",
                 men: "👨 Men", women: "👩 Women", old: "👴 Elderly", allTot: "Grand Total", titleClass: "👥 Sheikh, Pir & Murid",
                 cls: "Class", cm: "Male", cf: "Female", cc: "Children", ctot: "Total", sheikh: "Sheikh", pir: "Pir", murid: "Murid",
-                formHead: "👤 Personal & Statistical Info", lblFullName: "✍️ Full Name (3 Words):", inputHolder: "Enter full name...",
+                formHead: "👤 Personal & Statistical Info", lblFullName: "✍️ Full Name:", inputHolder: "Enter full name...",
                 lblBirthDate: "📅 Date of Birth:", lblRegion: "📍 Select Region / Country:", lblPerson: "👤 Age & Gender Group:",
                 lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:",
                 btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "Thank you for your contribution.",
@@ -594,7 +631,7 @@
                 men: "👨 Мужчины", women: "👩 Женщины", old: "👴 Пожилые", allTot: "Итого", titleClass: "👥 Шейхи, Пиры и Муриды",
                 cls: "Каста", cm: "Муж", cf: "Жен", cc: "Дети", ctot: "Всего", sheikh: "Шейх", pir: "Пир", murid: "Мурид",
                 formHead: "👤 Личные Данные", lblFullName: "✍️ Полное Имя:", inputHolder: "Введите ваше полное имя...",
-                lblBirthDate: "📅 Дата Рождения:", lblRegion: "📍 Регион / Страنا:", lblPerson: "👤 Возрастная Группа:",
+                lblBirthDate: "📅 Дата Рождения:", lblRegion: "📍 Регион / Страна:", lblPerson: "👤 Возрастная Группа:",
                 lblClass: "👥 Социальная Каста:", lblMarital: "💍 Семейное Положение:", lblChildrenCount: "👶 Количество Детей:", lblBoys: "👦 Мальчики:", lblGirls: "👧 Девочки:",
                 btnSave: "✅ Сохранить", btnCancel: "Отмена", successHead: "Данные Сохранены!", successMsg: "Спасибо за ваш вклад.",
                 btnBack: "На Главную", optRegDef: "Выберите Регион", optPerDef: "Выберите Категорию", optClsDef: "Выберите Касту", optMarDef: "Выберите Статус",
@@ -700,7 +737,6 @@
             document.getElementById("childrenGender").style.display = num > 0 ? "grid" : "none";
         }
 
-        // الاستماع المباشر للتغييرات في قاعدة البيانات السحابية
         db.ref("public_stats").on("value", (snapshot) => {
             let data = snapshot.val() || {
                 total: 0, male: 0, female: 0, childMale: 0, childFemale: 0, youngMale: 0, youngFemale: 0,
@@ -740,7 +776,6 @@
                 }
             }
 
-            // 1. حفظ البيانات الخاصة (الاسم وتاريخ الميلاد) في سجل مستقل للخصوصية
             db.ref("private_records").push({
                 fullName: fullName,
                 birthDate: birthDate,
@@ -749,8 +784,6 @@
                 timestamp: Date.now()
             });
 
-            // 2. التحديث السحابي التراكمي للإحصائيات العامة المتاحة للجميع
-            let updates = {};
             let inc = (path, val = 1) => {
                 db.ref("public_stats/" + path).transaction(curr => (curr || 0) + val);
             };
