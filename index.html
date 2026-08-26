@@ -228,6 +228,21 @@
         th { background: rgba(255,255,255,0.03); color: var(--primary-gold); }
         .total-row { background: rgba(229, 169, 59, 0.1); font-weight: bold; color: var(--primary-gold); }
 
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            height: 8px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .progress-bar-fill {
+            background: var(--primary-gold);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
         #formSection { display: none; }
         .form-group { margin-bottom: 15px; }
         label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
@@ -321,6 +336,7 @@
             <br>
 
             <div class="dashboard-grid">
+                <!-- العمر والجنس -->
                 <div class="card">
                     <div class="card-title" id="txt-title-age">👨‍👩‍👧 العمر والجنس</div>
                     <table>
@@ -343,6 +359,7 @@
                     </table>
                 </div>
 
+                <!-- الطبقات الاجتماعية -->
                 <div class="card">
                     <div class="card-title" id="txt-title-class">👥 الشيخ والبير والمريد</div>
                     <table>
@@ -363,6 +380,32 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- قسم إحصائيات الدول الجديد -->
+                <div class="card" style="grid-column: 1 / -1;">
+                    <div class="card-title" id="txt-title-region">🌍 التوزيع الجغرافي وحسب الدول</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="th-reg-name" style="text-align: right;">المنطقة / الدولة</th>
+                                <th id="th-reg-count">عدد السكان المسجلين</th>
+                                <th id="th-reg-pct">النسبة المئوية</th>
+                            </tr>
+                        </thead>
+                        <tbody id="regionsTableBody">
+                            <tr><td id="reg-sinjar">شنكال (Shingal)</td><td id="reg-sinjar-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-sinjar"></div></div></td></tr>
+                            <tr><td id="reg-germany">ألمانيا (Germany)</td><td id="reg-germany-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-germany"></div></div></td></tr>
+                            <tr><td id="reg-iraq">العراق (بقية المناطق)</td><td id="reg-iraq-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-iraq"></div></div></td></tr>
+                            <tr><td id="reg-syria">سوريا (Syria)</td><td id="reg-syria-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-syria"></div></div></td></tr>
+                            <tr><td id="reg-georgia">جورجيا (Georgia)</td><td id="reg-georgia-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-georgia"></div></div></td></tr>
+                            <tr><td id="reg-russia">روسيا (Russia)</td><td id="reg-russia-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-russia"></div></div></td></tr>
+                            <tr><td id="reg-armenia">أرمينيا (Armenia)</td><td id="reg-armenia-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-armenia"></div></div></td></tr>
+                            <tr><td id="reg-turkey">تركيا (Turkey)</td><td id="reg-turkey-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-turkey"></div></div></td></tr>
+                            <tr><td id="reg-other">دول أخرى (Other)</td><td id="reg-other-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-other"></div></div></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
 
@@ -383,14 +426,15 @@
                 <label id="lbl-region">📍 اختر المنطقة / البلد:</label>
                 <select id="region">
                     <option value="" id="opt-reg-def">اختر المنطقة</option>
-                    <option value="sinjar">شنكال (Shingal)</option>
-                    <option value="syria">سوريا</option>
-                    <option value="georgia">جورجيا</option>
-                    <option value="russia">روسيا</option>
-                    <option value="armenia">أرمينيا</option>
-                    <option value="turkey">تركيا</option>
-                    <option value="germany">ألمانيا</option>
-                    <option value="other">بلد آخر</option>
+                    <option value="sinjar" id="opt-reg-sinjar">شنكال (Shingal)</option>
+                    <option value="germany" id="opt-reg-germany">ألمانيا</option>
+                    <option value="iraq" id="opt-reg-iraq">العراق (بقية المناطق)</option>
+                    <option value="syria" id="opt-reg-syria">سوريا</option>
+                    <option value="georgia" id="opt-reg-georgia">جورجيا</option>
+                    <option value="russia" id="opt-reg-russia">روسيا</option>
+                    <option value="armenia" id="opt-reg-armenia">أرمينيا</option>
+                    <option value="turkey" id="opt-reg-turkey">تركيا</option>
+                    <option value="other" id="opt-reg-other">بلد آخر</option>
                 </select>
             </div>
 
@@ -471,177 +515,42 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // ⬇️ يمكنك تعديل نصوص اللغة الإيزيدية مباشرة من هذا القسم ⬇️
+        // ⬇️ يمكنك تعديل نصوص اللغة الإيزيدية ومسميات الدول هنا ⬇️
         const translations = {
             ezd: {
-                dir: "rtl", 
-                appTitle: "𐺏𐺟𐺆𐺡𐺩", 
-                navHome: "Malper", 
-                navAdd: "Zêdekirin", 
-                headerTitle: "𐺏𐺟𐺆𐺡𐺩 - Amarên Civakê",
-                btnAdd: "Zêdekirina Zanînan", 
-                totalPop: "Hemû Hejmar", 
-                male: "👨 Mêr", 
-                female: "👩 Jin", 
-                titleAge: "👨‍👩‍👧 Temen u Rêgez",
-                cat: "Fê", 
-                m: "Mêr", 
-                f: "Jin", 
-                tot: "Tevayî", 
-                child: "👶 Zarok", 
-                young: "🧑 Ciwan", 
-                men: "👨 Mêr", 
-                women: "👩 Jin",
-                old: "👴 Kal û Pîr", 
-                allTot: "Tevayî", 
-                titleClass: "👥 Şêx, Pîr û Mirîd", 
-                cls: "Tabaqa", 
-                cm: "Mêr", 
-                cf: "Jin", 
-                cc: "Zarok", 
-                ctot: "Hemû",
-                sheikh: "Şêx", 
-                pir: "Pîr", 
-                murid: "Mirîd", 
-                formHead: "👤 Nav u Zanîn", 
-                lblFullName: "✍️ Navê Sêyan:", 
-                inputHolder: "Navê sêyan binivîse...",
-                lblBirthDate: "📅 Dîroka Bûnê:", 
-                lblRegion: "📍 Herêm / Welat:", 
-                lblPerson: "👤 Temen u Rêgez:", 
-                lblClass: "👥 Tabaqa Civakî:",
-                lblMarital: "💍 Rewşa Zewacê:", 
-                lblChildrenCount: "👶 Hejmara Zarokan:", 
-                lblBoys: "👦 Kuř:", 
-                lblGirls: "👧 Keç:",
-                btnSave: "✅ Tomarkirin", 
-                btnCancel: "Betal", 
-                successHead: "Zanîn hatin tomarkirin!", 
-                successMsg: "Spas ji bo alîkariya we.",
-                btnBack: "Vegere Malperê", 
-                optRegDef: "Herêmê hilbijêre", 
-                optPerDef: "Kategoriyê hilbijêre", 
-                optClsDef: "Tabaqê hilbijêre", 
-                optMarDef: "Rewşê hilbijêre",
-                optCm: "👦 Kurk", 
-                optCf: "👧 Keçik", 
-                optYm: "🧑 Lawik", 
-                optYf: "🧑 Keç", 
-                optM: "👨 Mêr", 
-                optW: "👩 Jin", 
-                optOm: "👴 Kal", 
-                optOf: "👵 Pîr",
-                optSheikh: "Şêx", 
-                optPir: "Pîr", 
-                optMurid: "Mirîd", 
-                optMm: "Zewicî (Mêr)", 
-                optMf: "Zewicî (Jin)", 
-                optSm: "Ezeb (Mêr)", 
-                optSf: "Ezeb (Jin)"
+                dir: "rtl", appTitle: "𐺏𐺟𐺆𐺡𐺩", navHome: "Malper", navAdd: "Zêdekirin", headerTitle: "𐺏𐺟𐺆𐺡𐺩 - Amarên Civakê",
+                btnAdd: "Zêdekirina Zanînan", totalPop: "Hemû Hejmar", male: "👨 Mêr", female: "👩 Jin", titleAge: "👨‍👩‍👧 Temen u Rêgez",
+                cat: "Fê", m: "Mêr", f: "Jin", tot: "Tevayî", child: "👶 Zarok", young: "🧑 Ciwan", men: "👨 Mêr", women: "👩 Jin", old: "👴 Kal û Pîr", allTot: "Tevayî",
+                titleClass: "👥 Şêx, Pîr û Mirîd", cls: "Tabaqa", cm: "Mêr", cf: "Jin", cc: "Zarok", ctot: "Hemû", sheikh: "Şêx", pir: "Pîr", murid: "Mirîd",
+                titleRegion: "🌍 Belavbûna Li Welatan", thRegName: "Herêm / Welat", thRegCount: "Hejmara Kesan", thRegPct: "Rêje (%)",
+                regSinjar: "Şengal (Sinjar)", regGermany: "Almanya (Germany)", regIraq: "Êraq (Cihên din)", regSyria: "Sûrî (Syria)", regGeorgia: "Gurcistan (Georgia)", regRussia: "Rûsya (Russia)", regArmenia: "Ermenistan (Armenia)", regTurkey: "Tirkiya (Turkey)", regOther: "Welatên din",
+                formHead: "👤 Nav u Zanîn", lblFullName: "✍️ Navê Sêyan:", inputHolder: "Navê sêyan binivîse...", lblBirthDate: "📅 Dîroka Bûnê:", lblRegion: "📍 Herêm / Welat:", lblPerson: "👤 Temen u Rêgez:", lblClass: "👥 Tabaqa Civakî:", lblMarital: "💍 Rewşa Zewacê:", lblChildrenCount: "👶 Hejmara Zarokan:", lblBoys: "👦 Kuř:", lblGirls: "👧 Keç:", btnSave: "✅ Tomarkirin", btnCancel: "Betal", successHead: "Zanîn hatin tomarkirin!", successMsg: "Spas ji bo alîkariya we.", btnBack: "Vegere Malperê", optRegDef: "Herêmê hilbijêre", optPerDef: "Kategoriyê hilbijêre", optClsDef: "Tabaqê hilbijêre", optMarDef: "Rewşê hilbijêre", optCm: "👦 Kurk", optCf: "👧 Keçik", optYm: "🧑 Lawik", optYf: "🧑 Keç", optM: "👨 Mêr", optW: "👩 Jin", optOm: "👴 Kal", optOf: "👵 Pîr", optSheikh: "Şêx", optPir: "Pîr", optMurid: "Mirîd", optMm: "Zewicî (Mêr)", optMf: "Zewicî (Jin)", optSm: "Ezeb (Mêr)", optSf: "Ezeb (Jin)"
             },
             ar: {
-                dir: "rtl", appTitle: "الإحصائية الإيزيدية", navHome: "الرئيسية", navAdd: "إضافة بيانات",
-                headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل",
-                male: "👨 ذكور", female: "👩 إناث", titleAge: "👨‍👩‍👧 العمر والجنس", cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع",
-                child: "👶 أطفال", young: "🧑 شباب", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع الكلي",
-                titleClass: "👥 الشيخ والبير والمريد", cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل",
-                sheikh: "شيخ", pir: "بير", murid: "مريد", formHead: "👤 معلوماتك الشخصية والإحصائية",
-                lblFullName: "✍️ الاسم الكامل (الثلاثي):", inputHolder: "أدخل اسمك الثلاثي...", lblBirthDate: "📅 تاريخ الميلاد:",
-                lblRegion: "📍 اختر المنطقة / البلد:", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:",
-                lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:",
-                btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.",
-                btnBack: "العودة للرئيسية", optRegDef: "اختر المنطقة", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة",
-                optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن",
-                optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج", optMf: "متزوجة", optSm: "أعزب", optSf: "عزباء"
+                dir: "rtl", appTitle: "الإحصائية الإيزيدية", navHome: "الرئيسية", navAdd: "إضافة بيانات", headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل", male: "👨 ذكور", female: "👩 إناث", titleAge: "👨‍👩‍👧 العمر والجنس", cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع", child: "👶 أطفال", young: "🧑 شباب", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع الكلي",
+                titleClass: "👥 الشيخ والبير والمريد", cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل", sheikh: "شيخ", pir: "بير", murid: "مريد",
+                titleRegion: "🌍 التوزيع الجغرافي وحسب الدول", thRegName: "المنطقة / الدولة", thRegCount: "عدد السكان المسجلين", thRegPct: "النسبة المئوية",
+                regSinjar: "شنكال (Shingal)", regGermany: "ألمانيا", regIraq: "العراق (بقية المناطق)", regSyria: "سوريا", regGeorgia: "جورجيا", regRussia: "روسيا", regArmenia: "أرمينيا", regTurkey: "تركيا", regOther: "دول أخرى",
+                formHead: "👤 معلوماتك الشخصية والإحصائية", lblFullName: "✍️ الاسم الكامل (الثلاثي):", inputHolder: "أدخل اسمك الثلاثي...", lblBirthDate: "📅 تاريخ الميلاد:", lblRegion: "📍 اختر المنطقة / البلد:", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية", optRegDef: "اختر المنطقة", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج", optMf: "متزوجة", optSm: "أعزب", optSf: "عزباء"
             },
             nl: {
-                dir: "ltr", appTitle: "Jezidische Statistieken", navHome: "Startpagina", navAdd: "Gegevens toevoegen", headerTitle: "Jezidische Bevolkingsstatistieken",
-                btnAdd: "Persoons- / Familiegegevens toevoegen", totalPop: "Totaal Geregistreerde Bevolking", male: "👨 Mannen", female: "👩 Vrouwen",
-                titleAge: "👨‍👩‍👧 Leeftijd & Geslacht", cat: "Categorie", m: "Man", f: "Vrouw", tot: "Totaal", child: "👶 Kinderen", young: "🧑 Jongeren",
-                men: "👨 Mannen", women: "👩 Vrouwen", old: "👴 Ouderen", allTot: "Eindtotaal", titleClass: "👥 Sjeik, Pir & Murid",
-                cls: "Kaste", cm: "Man", cf: "Vrouw", cc: "Kinderen", ctot: "Totaal", sheikh: "Sjeik", pir: "Pir", murid: "Murid",
-                formHead: "👤 Persoonlijke Informatie", lblFullName: "✍️ Volledige Naam:", inputHolder: "Voer volledige naam in...",
-                lblBirthDate: "📅 Geboortedatum:", lblRegion: "📍 Selecteer Regio / Land:", lblPerson: "👤 Leeftijd & Geslachtsgroep:",
-                lblClass: "👥 Sociale Kaste:", lblMarital: "💍 Burgerlijke Staat:", lblChildrenCount: "👶 Aantal Kinderen:", lblBoys: "👦 Jongens:", lblGirls: "👧 Meisjes:",
-                btnSave: "✅ Opslaan", btnCancel: "Annuleren", successHead: "Gegevens Succesvol Opgeslagen!", successMsg: "Bedankt voor uw bijdrage.",
-                btnBack: "Terug naar Startpagina", optRegDef: "Selecteer Regio", optPerDef: "Selecteer Categorie", optClsDef: "Selecteer Kaste", optMarDef: "Selecteer Status",
-                optCm: "👦 Jongen", optCf: "👧 Meisje", optYm: "🧑 Jonge Man", optYf: "🧑 Jonge Vrouw", optM: "👨 Man", optW: "👩 Vrouw", optOm: "👴 Oudere Man", optOf: "👵 Oudere Vrouw",
-                optSheikh: "Sjeik", optPir: "Pir", optMurid: "Murid", optMm: "Getrouwd (Man)", optMf: "Getrouwd (Vrouw)", optSm: "Ongehuwd (Man)", optSf: "Ongehuwd (Vrouw)"
+                dir: "ltr", appTitle: "Jezidische Statistieken", navHome: "Startpagina", navAdd: "Gegevens toevoegen", headerTitle: "Jezidische Bevolkingsstatistieken", btnAdd: "Persoons- / Familiegegevens toevoegen", totalPop: "Totaal Geregistreerde Bevolking", male: "👨 Mannen", female: "👩 Vrouwen", titleAge: "👨‍👩‍👧 Leeftijd & Geslacht", cat: "Categorie", m: "Man", f: "Vrouw", tot: "Totaal", child: "👶 Kinderen", young: "🧑 Jongeren", men: "👨 Mannen", women: "👩 Vrouwen", old: "👴 Ouderen", allTot: "Eindtotaal",
+                titleClass: "👥 Sjeik, Pir & Murid", cls: "Kaste", cm: "Man", cf: "Vrouw", cc: "Kinderen", ctot: "Totaal", sheikh: "Sjeik", pir: "Pir", murid: "Murid",
+                titleRegion: "🌍 Geografische Spreiding per Land", thRegName: "Regio / Land", thRegCount: "Geregistreerde Bevolking", thRegPct: "Percentage (%)",
+                regSinjar: "Sinjar", regGermany: "Duitsland", regIraq: "Irak (Overige)", regSyria: "Syrië", regGeorgia: "Georgië", regRussia: "Rusland", regArmenia: "Armenië", regTurkey: "Turkije", regOther: "Andere Landen",
+                formHead: "👤 Persoonlijke Informatie", lblFullName: "✍️ Volledige Naam:", inputHolder: "Voer volledige naam in...", lblBirthDate: "📅 Geboortedatum:", lblRegion: "📍 Selecteer Regio / Land:", lblPerson: "👤 Leeftijd & Geslachtsgroep:", lblClass: "👥 Sociale Kaste:", lblMarital: "💍 Burgerlijke Staat:", lblChildrenCount: "👶 Aantal Kinderen:", lblBoys: "👦 Jongens:", lblGirls: "👧 Meisjes:", btnSave: "✅ Opslaan", btnCancel: "Annuleren", successHead: "Gegevens Succesvol Opgeslagen!", successMsg: "Bedankt voor uw bijdrage.", btnBack: "Terug naar Startpagina", optRegDef: "Selecteer Regio", optPerDef: "Selecteer Categorie", optClsDef: "Selecteer Kaste", optMarDef: "Selecteer Status", optCm: "👦 Jongen", optCf: "👧 Meisje", optYm: "🧑 Jonge Man", optYf: "🧑 Jonge Vrouw", optM: "👨 Man", optW: "👩 Vrouw", optOm: "👴 Oudere Man", optOf: "👵 Oudere Vrouw", optSheikh: "Sjeik", optPir: "Pir", optMurid: "Murid", optMm: "Getrouwd (Man)", optMf: "Getrouwd (Vrouw)", optSm: "Ongehuwd (Man)", optSf: "Ongehuwd (Vrouw)"
             },
             en: {
-                dir: "ltr", appTitle: "Yazidi Census", navHome: "Home", navAdd: "Add Data", headerTitle: "Yazidi Population Statistics",
-                btnAdd: "Add Person / Family Data", totalPop: "Total Registered Population", male: "👨 Male", female: "👩 Female",
-                titleAge: "👨‍👩‍👧 Age & Gender", cat: "Category", m: "Male", f: "Female", tot: "Total", child: "👶 Children", young: "🧑 Youth",
-                men: "👨 Men", women: "👩 Women", old: "👴 Elderly", allTot: "Grand Total", titleClass: "👥 Sheikh, Pir & Murid",
-                cls: "Class", cm: "Male", cf: "Female", cc: "Children", ctot: "Total", sheikh: "Sheikh", pir: "Pir", murid: "Murid",
-                formHead: "👤 Personal & Statistical Info", lblFullName: "✍️ Full Name:", inputHolder: "Enter full name...",
-                lblBirthDate: "📅 Date of Birth:", lblRegion: "📍 Select Region / Country:", lblPerson: "👤 Age & Gender Group:",
-                lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:",
-                btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "Thank you for your contribution.",
-                btnBack: "Back to Home", optRegDef: "Select Region", optPerDef: "Select Category", optClsDef: "Select Class", optMarDef: "Select Status",
-                optCm: "👦 Boy", optCf: "👧 Girl", optYm: "🧑 Young Man", optYf: "🧑 Young Woman", optM: "👨 Man", optW: "👩 Woman", optOm: "👴 Elderly Man", optOf: "👵 Elderly Woman",
-                optSheikh: "Sheikh", optPir: "Pir", optMurid: "Murid", optMm: "Married Man", optMf: "Married Woman", optSm: "Single Man", optSf: "Single Woman"
-            },
-            de: {
-                dir: "ltr", appTitle: "Jesidische Statistik", navHome: "Startseite", navAdd: "Daten hinzufügen", headerTitle: "Jesidische Bevölkerungsstatistik",
-                btnAdd: "Personen- / Familiendaten hinzufügen", totalPop: "Registrierte Gesamtbevölkerung", male: "👨 Männlich", female: "👩 Weiblich",
-                titleAge: "👨‍👩‍👧 Alter & Geschlecht", cat: "Kategorie", m: "Männlich", f: "Weiblich", tot: "Gesamt", child: "👶 Kinder", young: "🧑 Jugendliche",
-                men: "👨 Männer", women: "👩 Frauen", old: "👴 Senioren", allTot: "Gesamtsumme", titleClass: "👥 Scheich, Pir & Murid",
-                cls: "Kaste", cm: "Männlich", cf: "Weiblich", cc: "Kinder", ctot: "Gesamt", sheikh: "Scheich", pir: "Pir", murid: "Murid",
-                formHead: "👤 Persönliche & Statistische Daten", lblFullName: "✍️ Vollständiger Name:", inputHolder: "Vollständigen Namen eingeben...",
-                lblBirthDate: "📅 Geburtsdatum:", lblRegion: "📍 Region / Land auswählen:", lblPerson: "👤 Alters- & Geschlechtsgruppe:",
-                lblClass: "👥 Soziale Kaste:", lblMarital: "💍 Familienstand:", lblChildrenCount: "👶 Anzahl der Kinder:", lblBoys: "👦 Jungen:", lblGirls: "👧 Mädchen:",
-                btnSave: "✅ Speichern", btnCancel: "Abbrechen", successHead: "Daten erfolgreich gespeichert!", successMsg: "Vielen Dank für Ihren Beitrag.",
-                btnBack: "Zurück zur Startseite", optRegDef: "Region wählen", optPerDef: "Kategorie wählen", optClsDef: "Kaste wählen", optMarDef: "Status wählen",
-                optCm: "👦 Junge", optCf: "👧 Mädchen", optYm: "🧑 Junger Mann", optYf: "🧑 Junge Frau", optM: "👨 Mann", optW: "👩 Frau", optOm: "👴 Älterer Mann", optOf: "👵 Ältere Frau",
-                optSheikh: "Scheich", optPir: "Pir", optMurid: "Murid", optMm: "Verheiratet (Mann)", optMf: "Verheiratet (Frau)", optSm: "Ledig (Mann)", optSf: "Ledig (Frau)"
-            },
-            fr: {
-                dir: "ltr", appTitle: "Statistiques Yézidies", navHome: "Accueil", navAdd: "Ajouter des données", headerTitle: "Statistiques de la Population Yézidie",
-                btnAdd: "Ajouter Personne / Famille", totalPop: "Population Totale Enregistrée", male: "👨 Hommes", female: "👩 Femmes",
-                titleAge: "👨‍👩‍👧 Âge et Sexe", cat: "Catégorie", m: "Homme", f: "Femme", tot: "Total", child: "👶 Enfants", young: "🧑 Jeunes",
-                men: "👨 Hommes", women: "👩 Femmes", old: "👴 Personnes âgées", allTot: "Total Général", titleClass: "👥 Cheikh, Pir & Mourid",
-                cls: "Classe", cm: "Homme", cf: "Femme", cc: "Enfants", ctot: "Total", sheikh: "Cheikh", pir: "Pir", murid: "Mourid",
-                formHead: "👤 Informations Personnelles", lblFullName: "✍️ Nom Complet:", inputHolder: "Entrez votre nom complet...",
-                lblBirthDate: "📅 Date de Naissance:", lblRegion: "📍 Région / Pays:", lblPerson: "👤 Tranche d'âge et Sexe:",
-                lblClass: "👥 Classe Sociale:", lblMarital: "💍 État Civil:", lblChildrenCount: "👶 Nombre d'enfants:", lblBoys: "👦 Garçons:", lblGirls: "👧 Filles:",
-                btnSave: "✅ Enregistrer", btnCancel: "Annuler", successHead: "Enregistré avec succès!", successMsg: "Merci pour votre contribution.",
-                btnBack: "Retour à l'accueil", optRegDef: "Choisir la région", optPerDef: "Choisir la catégorie", optClsDef: "Choisir la classe", optMarDef: "Choisir le statut",
-                optCm: "👦 Garçon", optCf: "👧 Fille", optYm: "🧑 Jeune homme", optYf: "🧑 Jeune femme", optM: "👨 Homme", optW: "👩 Femme", optOm: "👴 Homme âgé", optOf: "👵 Femme âgée",
-                optSheikh: "Cheikh", optPir: "Pir", optMurid: "Mourid", optMm: "Marié", optMf: "Mariée", optSm: "Célibataire (H)", optSf: "Célibataire (F)"
-            },
-            es: {
-                dir: "ltr", appTitle: "Estadísticas Yazidíes", navHome: "Inicio", navAdd: "Añadir Datos", headerTitle: "Estadísticas de la Población Yazidí",
-                btnAdd: "Añadir Persona / Familia", totalPop: "Población Total Registrada", male: "👨 Hombres", female: "👩 Mujeres",
-                titleAge: "👨‍👩‍👧 Edad y Género", cat: "Categoría", m: "Hombre", f: "Mujer", tot: "Total", child: "👶 Niños", young: "🧑 Jóvenes",
-                men: "👨 Hombres", women: "👩 Mujeres", old: "👴 Mayores", allTot: "Gran Total", titleClass: "👥 Jeques, Pires y Murides",
-                cls: "Clase", cm: "Hombre", cf: "Mujer", cc: "Niños", ctot: "Total", sheikh: "Jeque", pir: "Pir", murid: "Murid",
-                formHead: "👤 Información Personal", lblFullName: "✍️ Nombre Completo:", inputHolder: "Ingrese su nombre completo...",
-                lblBirthDate: "📅 Fecha de Nacimiento:", lblRegion: "📍 Región / País:", lblPerson: "👤 Grupo de Edad y Género:",
-                lblClass: "👥 Clase Social:", lblMarital: "💍 Estado Civil:", lblChildrenCount: "👶 Número de Hijos:", lblBoys: "👦 Niños:", lblGirls: "👧 Niñas:",
-                btnSave: "✅ Guardar", btnCancel: "Cancelar", successHead: "¡Guardado con Éxito!", successMsg: "Gracias por su contribución.",
-                btnBack: "Volver al Inicio", optRegDef: "Seleccionar Región", optPerDef: "Seleccionar Categoría", optClsDef: "Seleccionar Clase", optMarDef: "Seleccionar Estado",
-                optCm: "👦 Niño", optCf: "👧 Niña", optYm: "🧑 Joven (H)", optYf: "🧑 Joven (M)", optM: "👨 Hombre", optW: "👩 Mujer", optOm: "👴 Anciano", optOf: "👵 Anciana",
-                optSheikh: "Jeque", optPir: "Pir", optMurid: "Murid", optMm: "Casado", optMf: "Casada", optSm: "Soltero", optSf: "Soltera"
-            },
-            ru: {
-                dir: "ltr", appTitle: "Езидская Статистика", navHome: "Главная", navAdd: "Добавить данные", headerTitle: "Статистика Езидского Населения",
-                btnAdd: "Добавить Человека / Семью", totalPop: "Всего Зарегистрировано", male: "👨 Мужчины", female: "👩 Женщины",
-                titleAge: "👨‍👩‍👧 Возраст и Пол", cat: "Категория", m: "Муж", f: "Жен", tot: "Всего", child: "👶 Дети", young: "🧑 Молодежь",
-                men: "👨 Мужчины", women: "👩 Женщины", old: "👴 Пожилые", allTot: "Итого", titleClass: "👥 Шейхи, Пиры и Муриды",
-                cls: "Каста", cm: "Муж", cf: "Жен", cc: "Дети", ctot: "Всего", sheikh: "Шейх", pir: "Пир", murid: "Мурид",
-                formHead: "👤 Личные Данные", lblFullName: "✍️ Полное Имя:", inputHolder: "Введите ваше полное имя...",
-                lblBirthDate: "📅 Дата Рождения:", lblRegion: "📍 Регион / Страна:", lblPerson: "👤 Возрастная Группа:",
-                lblClass: "👥 Социальная Каста:", lblMarital: "💍 Семейное Положение:", lblChildrenCount: "👶 Количество Детей:", lblBoys: "👦 Мальчики:", lblGirls: "👧 Девочки:",
-                btnSave: "✅ Сохранить", btnCancel: "Отмена", successHead: "Данные Сохранены!", successMsg: "Спасибо за ваш вклад.",
-                btnBack: "На Главную", optRegDef: "Выберите Регион", optPerDef: "Выберите Категорию", optClsDef: "Выберите Касту", optMarDef: "Выберите Статус",
-                optCm: "👦 Мальчик", optCf: "👧 Девочка", optYm: "🧑 Юноша", optYf: "🧑 Девушка", optM: "👨 Мужчина", optW: "👩 Женщина", optOm: "👴 Пожилой Мужчина", optOf: "👵 Пожилая Женщина",
-                optSheikh: "Шейх", optPir: "Пир", optMurid: "Мурид", optMm: "Женат", optMf: "Замужем", optSm: "Холост", optSf: "Незамужем"
+                dir: "ltr", appTitle: "Yazidi Census", navHome: "Home", navAdd: "Add Data", headerTitle: "Yazidi Population Statistics", btnAdd: "Add Person / Family Data", totalPop: "Total Registered Population", male: "👨 Male", female: "👩 Female", titleAge: "👨‍👩‍👧 Age & Gender", cat: "Category", m: "Male", f: "Female", tot: "Total", child: "👶 Children", young: "🧑 Youth", men: "👨 Men", women: "👩 Women", old: "👴 Elderly", allTot: "Grand Total",
+                titleClass: "👥 Sheikh, Pir & Murid", cls: "Class", cm: "Male", cf: "Female", cc: "Children", ctot: "Total", sheikh: "Sheikh", pir: "Pir", murid: "Murid",
+                titleRegion: "🌍 Geographical Distribution by Country", thRegName: "Region / Country", thRegCount: "Registered Population", thRegPct: "Percentage (%)",
+                regSinjar: "Sinjar", regGermany: "Germany", regIraq: "Iraq (Rest)", regSyria: "Syria", regGeorgia: "Georgia", regRussia: "Russia", regArmenia: "Armenia", regTurkey: "Turkey", regOther: "Other Countries",
+                formHead: "👤 Personal & Statistical Info", lblFullName: "✍️ Full Name:", inputHolder: "Enter full name...", lblBirthDate: "📅 Date of Birth:", lblRegion: "📍 Select Region / Country:", lblPerson: "👤 Age & Gender Group:", lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:", btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "Thank you for your contribution.", btnBack: "Back to Home", optRegDef: "Select Region", optPerDef: "Select Category", optClsDef: "Select Class", optMarDef: "Select Status", optCm: "👦 Boy", optCf: "👧 Girl", optYm: "🧑 Young Man", optYf: "🧑 Young Woman", optM: "👨 Man", optW: "👩 Woman", optOm: "👴 Elderly Man", optOf: "👵 Elderly Woman", optSheikh: "Sheikh", optPir: "Pir", optMurid: "Murid", optMm: "Married Man", optMf: "Married Woman", optSm: "Single Man", optSf: "Single Woman"
             }
         };
 
         function changeLanguage(lang) {
-            const t = translations[lang];
+            const t = translations[lang] || translations['ar'];
             document.getElementById("htmlTag").dir = t.dir;
             document.getElementById("txt-app-title").textContent = t.appTitle;
             document.getElementById("txt-nav-home").textContent = t.navHome;
@@ -672,6 +581,22 @@
             document.getElementById("td-pir").textContent = t.pir;
             document.getElementById("td-murid").textContent = t.murid;
             document.getElementById("td-call-tot").textContent = t.allTot;
+
+            // تحديث نصوص قسم الدول
+            document.getElementById("txt-title-region").textContent = t.titleRegion;
+            document.getElementById("th-reg-name").textContent = t.thRegName;
+            document.getElementById("th-reg-count").textContent = t.thRegCount;
+            document.getElementById("th-reg-pct").textContent = t.thRegPct;
+            document.getElementById("reg-sinjar").textContent = t.regSinjar;
+            document.getElementById("reg-germany").textContent = t.regGermany;
+            document.getElementById("reg-iraq").textContent = t.regIraq;
+            document.getElementById("reg-syria").textContent = t.regSyria;
+            document.getElementById("reg-georgia").textContent = t.regGeorgia;
+            document.getElementById("reg-russia").textContent = t.regRussia;
+            document.getElementById("reg-armenia").textContent = t.regArmenia;
+            document.getElementById("reg-turkey").textContent = t.regTurkey;
+            document.getElementById("reg-other").textContent = t.regOther;
+
             document.getElementById("txt-form-head").textContent = t.formHead;
             document.getElementById("lbl-fullname").textContent = t.lblFullName;
             document.getElementById("fullName").placeholder = t.inputHolder;
@@ -743,7 +668,8 @@
                 men: 0, women: 0, oldMale: 0, oldFemale: 0,
                 sheikhMale: 0, sheikhFemale: 0, sheikhChildren: 0,
                 pirMale: 0, pirFemale: 0, pirChildren: 0,
-                muridMale: 0, muridFemale: 0, muridChildren: 0
+                muridMale: 0, muridFemale: 0, muridChildren: 0,
+                regions: {}
             };
             updateUI(data);
         });
@@ -805,6 +731,7 @@
             if (person === "oldMale") inc("oldMale", 1);
             if (person === "oldFemale") inc("oldFemale", 1);
 
+            // زيادة إحصائية الدولة المعنية بجميع أفراد العائلة المسجلين
             inc("regions/" + region, 1 + children);
 
             if (classType === "sheikh") {
@@ -836,7 +763,8 @@
         }
 
         function updateUI(data) {
-            set("total", data.total || 0);
+            let totalPop = data.total || 0;
+            set("total", totalPop);
             set("maleTotal", data.male || 0);
             set("femaleTotal", data.female || 0);
             set("childMale", data.childMale || 0);
@@ -849,14 +777,25 @@
             set("women", data.women || 0); set("womenTotal", data.women || 0);
             set("oldMale", data.oldMale || 0); set("oldFemale", data.oldFemale || 0);
             set("oldTotal", (data.oldMale || 0) + (data.oldFemale || 0));
-            set("tableMale", data.male || 0); set("tableFemale", data.female || 0); set("tableTotal", data.total || 0);
+            set("tableMale", data.male || 0); set("tableFemale", data.female || 0); set("tableTotal", totalPop);
             set("sheikhMale", data.sheikhMale || 0); set("sheikhFemale", data.sheikhFemale || 0); set("sheikhChildren", data.sheikhChildren || 0); set("sheikhTotal", (data.sheikhMale || 0) + (data.sheikhFemale || 0) + (data.sheikhChildren || 0));
             set("pirMale", data.pirMale || 0); set("pirFemale", data.pirFemale || 0); set("pirChildren", data.pirChildren || 0); set("pirTotal", (data.pirMale || 0) + (data.pirFemale || 0) + (data.pirChildren || 0));
             set("muridMale", data.muridMale || 0); set("muridFemale", data.muridFemale || 0); set("muridChildren", data.muridChildren || 0); set("muridTotal", (data.muridMale || 0) + (data.muridFemale || 0) + (data.muridChildren || 0));
             set("classMale", (data.sheikhMale || 0) + (data.pirMale || 0) + (data.muridMale || 0));
             set("classFemale", (data.sheikhFemale || 0) + (data.pirFemale || 0) + (data.muridFemale || 0));
             set("classChildren", (data.sheikhChildren || 0) + (data.pirChildren || 0) + (data.muridChildren || 0));
-            set("classTotal", data.total || 0);
+            set("classTotal", totalPop);
+
+            // تحديث جدول الدول والنسب المئوية
+            let regs = data.regions || {};
+            let list = ["sinjar", "germany", "iraq", "syria", "georgia", "russia", "armenia", "turkey", "other"];
+            list.forEach(r => {
+                let count = regs[r] || 0;
+                set("reg-" + r + "-val", count);
+                let pct = totalPop > 0 ? ((count / totalPop) * 100).toFixed(1) : 0;
+                let pb = document.getElementById("pb-" + r);
+                if (pb) pb.style.width = pct + "%";
+            });
         }
 
         function set(id, val) {
