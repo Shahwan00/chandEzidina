@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>إحصائيات المجتمع الإيزيدي</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(145deg,#f1f7f2,#e7f2ea);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    color:#222;
+}
+
+.container{
+    width:100%;
+    max-width:430px;
+}
+
+/* البطاقة الرئيسية */
+
+.card{
+    background:white;
+    border-radius:28px;
+    padding:32px 24px;
+    text-align:center;
+    box-shadow:0 8px 30px rgba(0,0,0,.10);
+}
+
+/* الرمز */
+
+.logo{
+    width:75px;
+    height:75px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    background:#eaf6ed;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+}
+
+/* العنوان */
+
+.title-ar{
+    color:#0a9b32;
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.title-en{
+    direction:ltr;
+    color:#777;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+/* الترحيب */
+
+.welcome{
+    font-size:19px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+/* النص */
+
+.description{
+    font-size:14px;
+    line-height:2;
+    color:#555;
+    margin-bottom:25px;
+}
+
+/* التنبيه */
+
+.notice{
+    background:#f5faf6;
+    border-right:4px solid #0a9b32;
+    border-radius:12px;
+    padding:12px;
+    text-align:right;
+    font-size:12px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.notice-en{
+    direction:ltr;
+    text-align:left;
+    color:#888;
+    font-size:10px;
+    margin-top:5px;
+}
+
+/* الزر */
+
+.start-btn{
+    width:100%;
+    border:0;
+    border-radius:15px;
+    background:#0a9b32;
+    color:white;
+    padding:16px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(10,155,50,.25);
+    transition:.2s;
+}
+
+.start-btn:active{
+    transform:scale(.97);
+}
+
+.button-en{
+    display:block;
+    direction:ltr;
+    font-size:10px;
+    margin-top:4px;
+    opacity:.9;
+}
+
+/* أسفل الصفحة */
+
+.footer{
+    margin-top:22px;
+    color:#999;
+    font-size:10px;
+}
+
+.footer strong{
+    color:#0a9b32;
+    font-size:12px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <!-- الشعار -->
+
+        <div class="logo">
+            ☀️
+        </div>
+
+
+        <!-- العنوان -->
+
+        <div class="title-ar">
+            إحصائيات المجتمع الإيزيدي
+        </div>
+
+        <div class="title-en">
+            Yazidi Population Statistics
+        </div>
+
+
+        <!-- الترحيب -->
+
+        <div class="welcome">
+            مرحبًا بك
+        </div>
+
+
+        <!-- الوصف -->
+
+        <div class="description">
+
+            يهدف هذا التطبيق إلى المساعدة في إعداد
+            إحصائية عامة للمجتمع الإيزيدي.
+
+            يرجى إدخال المعلومات بشكل صحيح
+            ودقيق للمساعدة في الحصول على إحصائية أفضل.
+
+        </div>
+
+
+        <!-- التنبيه -->
+
+        <div class="notice">
+
+            <strong>
+                📋 الرجاء اختيار المعلومات الصحيحة
+            </strong>
+
+            <br>
+
+            يرجى عدم إدخال أو اختيار معلومات غير صحيحة،
+            لأن دقة الإحصائية تعتمد على صحة المعلومات.
+
+            <div class="notice-en">
+
+                Please select the correct information.
+                Do not enter false information.
+                Accurate information helps improve the statistics.
+
+            </div>
+
+        </div>
+
+
+        <!-- زر الدخول -->
+
+        <button
+            class="start-btn"
+            onclick="enterApp()">
+
+            دخول إلى الإحصائية
+
+            <span class="button-en">
+                Enter Statistics
+            </span>
+
+        </button>
+
+
+        <!-- الحقوق -->
+
+        <div class="footer">
+
+            <strong>Ezzat 73</strong>
+
+            <br>
+
+            <strong></strong>Shahwan</strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function enterApp(){
+
+    window.location.href = "main.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
