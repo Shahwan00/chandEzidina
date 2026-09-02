@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlTag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="doc-title">الواجهة الإحصائية الإيزيدية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Noto+Serif+Yezidi:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b111e;
+            --bg-card: #151d2a;
+            --bg-card-hover: #1c2738;
+            --primary-gold: #e5a93b;
+            --primary-green: #0a9b32;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #263346;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', 'Noto Serif Yezidi', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #0e1626;
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 15px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        html[dir="ltr"] .sidebar {
+            right: auto;
+            left: 0;
+            border-left: none;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .brand {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-icon {
+            font-size: 36px;
+            color: var(--primary-gold);
+            margin-bottom: 5px;
+        }
+
+        .brand-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--bg-card-hover);
+            color: var(--primary-gold);
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .main-content {
+            margin-right: 250px;
+            flex: 1;
+            padding: 25px;
+            max-width: 1300px;
+        }
+
+        html[dir="ltr"] .main-content {
+            margin-right: 0;
+            margin-left: 250px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            padding: 15px 25px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .header-title h1 {
+            font-size: 22px;
+            color: var(--primary-gold);
+        }
+
+        .lang-select-box select {
+            background: var(--bg-main);
+            color: var(--primary-gold);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .total-banner {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid var(--primary-gold);
+            text-align: center;
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            grid-column: 1 / -1;
+        }
+
+        .total-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary-gold);
+            margin: 10px 0;
+        }
+
+        .gender-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .gender-box {
+            background: rgba(255,255,255,0.05);
+            padding: 12px 25px;
+            border-radius: var(--radius-md);
+            min-width: 140px;
+        }
+
+        .gender-box .num {
+            font-size: 22px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .action-btn {
+            width: 100%;
+            background: linear-gradient(90deg, #e5a93b, #c78c21);
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 20px;
+        }
+
+        .action-btn:hover { opacity: 0.9; }
+        .action-btn.disabled { background: #4b5563; color: #9ca3af; cursor: not-allowed; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td { padding: 10px 12px; text-align: center; border-bottom: 1px solid var(--border-color); }
+        th { background: rgba(255,255,255,0.03); color: var(--primary-gold); }
+        .total-row { background: rgba(229, 169, 59, 0.1); font-weight: bold; color: var(--primary-gold); }
+
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            height: 8px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .progress-bar-fill {
+            background: var(--primary-gold);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        #formSection { display: none; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+        select, input {
+            width: 100%; padding: 12px; border-radius: var(--radius-md);
+            border: 1px solid var(--border-color); background: var(--bg-main);
+            color: var(--text-main); font-size: 14px; outline: none;
+        }
+        select:focus, input:focus { border-color: var(--primary-gold); }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-secondary { background: #374151; color: white; border: none; padding: 12px; border-radius: var(--radius-md); flex: 1; cursor: pointer; }
+        #successSection { display: none; text-align: center; padding: 40px 20px; }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 70px; padding: 15px 5px; }
+            .brand-title, .nav-text, .sidebar-footer { display: none; }
+            .main-content { margin-right: 70px; padding: 15px; }
+            html[dir="ltr"] .main-content { margin-left: 70px; margin-right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="brand">
+                <div class="brand-icon">𒀭</div>
+                <div class="brand-title" id="txt-app-title">الإحصائية الإيزيدية</div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showHome()">
+                        <span>🏠</span>
+                        <span class="nav-text" id="txt-nav-home">الرئيسية</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showForm()">
+                        <span>➕</span>
+                        <span class="nav-text" id="txt-nav-add">إضافة بيانات</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            Ezzat Shingali<br><strong>Shahwan Ezidxani</strong>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <div class="header">
+            <div class="header-title">
+                <h1 id="txt-header-title">الواجهة الإحصائية الإيزيدية</h1>
+            </div>
+            <div class="lang-select-box">
+                🌐 <select id="languageSelect" onchange="changeLanguage(this.value)">
+                    <option value="ar">العربية</option>
+                    <option value="ezd">𐺩𐺏𐺨𐺋𐺨</option>
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                    <option value="ru">Русский</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="homeSection">
+            <button id="addButton" class="action-btn" onclick="showForm()">
+                ➕ <span id="txt-btn-add">إضافة بيانات شخص / عائلة</span>
+            </button>
+
+            <div class="total-banner">
+                <div style="color: var(--text-muted); font-size: 14px;" id="txt-total-pop">المجموع الكلي المسجل</div>
+                <div class="total-number" id="total">0</div>
+                <div class="gender-stats">
+                    <div class="gender-box">
+                        <span class="num" id="maleTotal">0</span>
+                        <span id="txt-male">👨 ذكور</span>
+                    </div>
+                    <div class="gender-box">
+                        <span class="num" id="femaleTotal">0</span>
+                        <span id="txt-female">👩 إناث</span>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="dashboard-grid">
+                <!-- العمر والجنس -->
+                <div class="card">
+                    <div class="card-title" id="txt-title-age">👨‍👩‍👧 العمر والجنس</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="th-cat">الفئة</th>
+                                <th id="th-m">ذكر</th>
+                                <th id="th-f">أنثى</th>
+                                <th id="th-tot">المجموع</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td id="td-child">👶 أطفال</td><td id="childMale">0</td><td id="childFemale">0</td><td id="childTotal">0</td></tr>
+                            <tr><td id="td-young">🧑 شباب</td><td id="youngMale">0</td><td id="youngFemale">0</td><td id="youngTotal">0</td></tr>
+                            <tr><td id="td-men">👨 رجال</td><td id="men">0</td><td>—</td><td id="menTotal">0</td></tr>
+                            <tr><td id="td-women">👩 نساء</td><td>—</td><td id="women">0</td><td id="womenTotal">0</td></tr>
+                            <tr><td id="td-old">👴 كبار السن</td><td id="oldMale">0</td><td id="oldFemale">0</td><td id="oldTotal">0</td></tr>
+                            <tr class="total-row"><td id="td-all-tot">المجموع الكلي</td><td id="tableMale">0</td><td id="tableFemale">0</td><td id="tableTotal">0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- الطبقات الاجتماعية -->
+                <div class="card">
+                    <div class="card-title" id="txt-title-class">👥 الشيخ والبير والمريد</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="th-cls">الطبقة</th>
+                                <th id="th-cm">ذكر</th>
+                                <th id="th-cf">أنثى</th>
+                                <th id="th-cc">أطفال</th>
+                                <th id="th-ctot">الكل</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td id="td-sheikh">شيخ</td><td id="sheikhMale">0</td><td id="sheikhFemale">0</td><td id="sheikhChildren">0</td><td id="sheikhTotal">0</td></tr>
+                            <tr><td id="td-pir">بير</td><td id="pirMale">0</td><td id="pirFemale">0</td><td id="pirChildren">0</td><td id="pirTotal">0</td></tr>
+                            <tr><td id="td-murid">مريد</td><td id="muridMale">0</td><td id="muridFemale">0</td><td id="muridChildren">0</td><td id="muridTotal">0</td></tr>
+                            <tr class="total-row"><td id="td-call-tot">المجموع الكلي</td><td id="classMale">0</td><td id="classFemale">0</td><td id="classChildren">0</td><td id="classTotal">0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- قسم إحصائيات الدول -->
+                <div class="card" style="grid-column: 1 / -1;">
+                    <div class="card-title" id="txt-title-region">🌍 التوزيع الجغرافي وحسب الدول</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="th-reg-name">المنطقة / الدولة</th>
+                                <th id="th-reg-count">عدد السكان المسجلين</th>
+                                <th id="th-reg-pct">النسبة المئوية</th>
+                            </tr>
+                        </thead>
+                        <tbody id="regionsTableBody">
+                            <tr><td id="reg-sinjar">شنكال (Shingal)</td><td id="reg-sinjar-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-sinjar"></div></div></td></tr>
+                            <tr><td id="reg-germany">ألمانيا (Germany)</td><td id="reg-germany-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-germany"></div></div></td></tr>
+                            <tr><td id="reg-iraq">العراق (بقية المناطق)</td><td id="reg-iraq-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-iraq"></div></div></td></tr>
+                            <tr><td id="reg-syria">سوريا (Syria)</td><td id="reg-syria-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-syria"></div></div></td></tr>
+                            <tr><td id="reg-georgia">جورجيا (Georgia)</td><td id="reg-georgia-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-georgia"></div></div></td></tr>
+                            <tr><td id="reg-russia">روسيا (Russia)</td><td id="reg-russia-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-russia"></div></div></td></tr>
+                            <tr><td id="reg-armenia">أرمينيا (Armenia)</td><td id="reg-armenia-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-armenia"></div></div></td></tr>
+                            <tr><td id="reg-turkey">تركيا (Turkey)</td><td id="reg-turkey-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-turkey"></div></div></td></tr>
+                            <tr><td id="reg-other">دول أخرى (Other)</td><td id="reg-other-val">0</td><td><div class="progress-bar-bg"><div class="progress-bar-fill" id="pb-other"></div></div></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="formSection" class="card" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-title" id="txt-form-head">👤 معلوماتك الإحصائية</div>
+
+            <div class="form-group">
+                <label id="lbl-region">📍 اختر المنطقة / البلد:</label>
+                <select id="region">
+                    <option value="" id="opt-reg-def">اختر المنطقة</option>
+                    <option value="sinjar" id="opt-reg-sinjar">شنكال (Shingal)</option>
+                    <option value="germany" id="opt-reg-germany">ألمانيا</option>
+                    <option value="iraq" id="opt-reg-iraq">العراق (بقية المناطق)</option>
+                    <option value="syria" id="opt-reg-syria">سوريا</option>
+                    <option value="georgia" id="opt-reg-georgia">جورجيا</option>
+                    <option value="russia" id="opt-reg-russia">روسيا</option>
+                    <option value="armenia" id="opt-reg-armenia">أرمينيا</option>
+                    <option value="turkey" id="opt-reg-turkey">تركيا</option>
+                    <option value="other" id="opt-reg-other">بلد آخر</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-person">👤 الفئة العمرية والجنس:</label>
+                <select id="person">
+                    <option value="" id="opt-per-def">اختر الفئة</option>
+                    <option value="childMale" id="opt-cm">طفل (ذكر)</option>
+                    <option value="childFemale" id="opt-cf">طفلة (أنثى)</option>
+                    <option value="youngMale" id="opt-ym">شاب</option>
+                    <option value="youngFemale" id="opt-yf">شابة</option>
+                    <option value="man" id="opt-m">رجل</option>
+                    <option value="woman" id="opt-w">امرأة</option>
+                    <option value="oldMale" id="opt-om">كبير السن</option>
+                    <option value="oldFemale" id="opt-of">كبيرة السن</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-class">👥 الطبقة الاجتماعية:</label>
+                <select id="classType">
+                    <option value="" id="opt-cls-def">اختر الطبقة</option>
+                    <option value="sheikh" id="opt-sheikh">شيخ</option>
+                    <option value="pir" id="opt-pir">بير</option>
+                    <option value="murid" id="opt-murid">مريد</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-marital">💍 الحالة الاجتماعية:</label>
+                <select id="marital" onchange="marriageChanged()">
+                    <option value="" id="opt-mar-def">اختر الحالة</option>
+                    <option value="marriedMale" id="opt-mm">متزوج</option>
+                    <option value="marriedFemale" id="opt-mf">متزوجة</option>
+                    <option value="singleMale" id="opt-sm">أعزب</option>
+                    <option value="singleFemale" id="opt-sf">عزباء</option>
+                </select>
+            </div>
+
+            <div id="childrenBox" style="display:none; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                <div class="form-group">
+                    <label id="lbl-children-count">👶 عدد الأطفال:</label>
+                    <select id="children" onchange="childrenChanged()">
+                        <option value="0">0</option>
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                        <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                    </select>
+                </div>
+                <div id="childrenGender" style="display:none; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="form-group"><label id="lbl-boys">👦 ذكور:</label><input type="number" id="boys" min="0" value="0"></div>
+                    <div class="form-group"><label id="lbl-girls">👧 إناث:</label><input type="number" id="girls" min="0" value="0"></div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="action-btn" onclick="addFamily()" style="margin-bottom: 0;" id="btn-save">✅ حفظ البيانات</button>
+                <button class="btn-secondary" onclick="showHome()" id="btn-cancel">إلغاء</button>
+            </div>
+        </div>
+
+        <div id="successSection" class="card">
+            <div style="font-size: 50px; color: var(--primary-green);">✓</div>
+            <h2 id="txt-success-head">تم حفظ البيانات بنجاح!</h2>
+            <p style="color: var(--text-muted); margin: 10px 0 20px;" id="txt-success-msg">شكراً لمساهمتك في دقة البيانات الإحصائية الإيزيدية.</p>
+            <button class="action-btn" onclick="showHome()" id="btn-back">العودة إلى الواجهة الرئيسية</button>
+        </div>
+
+    </div>
+
+    <!-- Firebase SDK Integration -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            databaseURL: "https://ezidi-f97ea-default-rtdb.firebaseio.com"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        const translations = {
+            ar: {
+                dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "الرئيسية", navAdd: "إضافة بيانات", headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل", male: "👨 ذكور", female: "👩 إناث", titleAge: "👨‍👩‍👧 العمر والجنس", cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع", child: "👶 أطفال", young: "🧑 شباب", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع الكلي",
+                titleClass: "👥 شيخ و بير و مريد", cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل", sheikh: "شيخ", pir: "بير", murid: "مريد",
+                titleRegion: "🌍 التوزيع الجغرافي وحسب الدول", thRegName: "المنطقة / الدولة", thRegCount: "عدد السكان المسجلين", thRegPct: "النسبة المئوية",
+                regSinjar: "شنكال (Shingal)", regGermany: "ألمانيا", regIraq: "العراق (بقية المناطق)", regSyria: "سوريا", regGeorgia: "جورجيا", regRussia: "روسيا", regArmenia: "أرمينيا", regTurkey: "تركيا", regOther: "دول أخرى",
+                formHead: "👤 معلوماتك الإحصائية", lblRegion: "📍 اختر المنطقة / البلد:", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية", optRegDef: "اختر المنطقة", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج", optMf: "متزوجة", optSm: "أعزب", optSf: "عزباء",
+                alertFill: "يرجى إكمال الحقول المطلوبة.", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال المكتوب.", alertSubmitted: "لقد قمت بإدخال بياناتك مسبقاً."
+            },
+            ezd: {
+                dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "𐺡𐺀𐺠", navAdd: "𐺏𐺩𐺋𐺦𐺝𐺌𐺍𐺌𐺢", headerTitle: "𐺧𐺨𐺐𐺡𐺀𐺍𐺦 𐺊𐺀𐺠𐺝𐺨 𐺨𐺏𐺨𐺋𐺨", btnAdd: "𐺋𐺀𐺝𐺍𐺄𐺢𐺀 𐺢𐺀𐺙 𐺣𐺣 𐺢𐺨𐺒𐺀𐺢 ", totalPop: "𐺝𐺥𐺡 𐺧𐺦𐺡𐺣𐺣", male: "👨 𐺡𐺩𐺍", female: "👩 𐺐𐺌𐺢", titleAge: "👨‍👩‍👧 𐺄𐺦𐺡𐺦𐺢 𐺣 𐺍𐺩𐺟𐺦𐺏", cat: "Fê", m: "𐺡𐺩𐺍", f: "Jin", tot: "𐺄𐺌𐺙𐺀𐺠", child: "👶 𐺏𐺀𐺍𐺥𐺞", young: "🧑 Ciwan", men: "👨 𐺡𐺩𐺍", women: "👩 𐺐𐺌𐺢", old: "👴 𐺞𐺀𐺠 𐺣𐺣 𐺂𐺱𐺍", allTot: "𐺄𐺌𐺙𐺀𐺠",
+                titleClass: "👥 𐺒𐺩𐺊, 𐺂𐺱𐺍 𐺣𐺣 𐺡𐺌𐺍𐺱𐺋", cls: "𐺇𐺨𐺢𐺦 𐺨𐺏𐺨𐺋𐺨", cm: "𐺡𐺩𐺍", cf: "𐺐𐺌𐺢", cc: "𐺏𐺀𐺍𐺥𐺝", ctot: "𐺧𐺦𐺡𐺣𐺣", sheikh: "𐺒𐺩𐺊", pir: "𐺂𐺱𐺍", murid: "𐺡𐺌𐺍𐺱𐺋",
+                titleRegion: "🌍𐺁𐺦𐺠𐺀𐺛𐺁𐺣𐺣𐺢𐺀 𐺠𐺌 𐺣𐺦𐺠𐺀𐺄𐺀𐺢", thRegName: "𐺧𐺦𐺍𐺩𐺡 / 𐺣𐺦𐺠𐺀𐺋", thRegCount: "𐺧𐺦𐺐𐺡𐺀𐺍𐺀 𐺞𐺦𐺑𐺀𐺢", thRegPct: "𐺇𐺀𐺢𐺋 𐺐𐺌 (%)",
+                regSinjar: "𐺒𐺩𐺢𐺟𐺀𐺠", regGermany: "𐺀𐺠𐺡𐺀𐺢𐺨𐺀", regIraq: "𐺗𐺍𐺀𐺜(Cihên din)", regSyria: "𐺑𐺣𐺣𐺍𐺨 (Syria)", regGeorgia: "𐺆𐺣𐺍𐺆𐺌𐺑𐺄𐺀𐺢 (Georgia)", regRussia: "𐺍𐺣𐺣𐺑𐺨𐺀 (Russia)", regArmenia: "𐺦𐺍𐺡𐺦𐺢𐺌𐺑𐺄𐺀𐺢 (Armenia)", regTurkey: "𐺄𐺌𐺍𐺝𐺌𐺨𐺀 (Turkey)", regOther: "𐺣𐺦𐺠𐺀𐺄𐺩𐺢 𐺞𐺌𐺢",
+                formHead: "👤 Zanînên Statîstîkî", lblRegion: "📍 𐺧𐺦𐺍𐺩𐺡 /𐺞𐺣𐺦𐺠𐺀𐺋:", lblPerson: "👤 Temen u Rêgez:", lblClass: "👥𐺇𐺨𐺢𐺦 𐺆𐺙𐺀𐺄𐺨:", lblMarital: "💍 Rewşa Zewacê:", lblChildrenCount: "👶𐺧𐺦𐺐𐺡𐺀𐺍𐺀 𐺏𐺀𐺍𐺥𐺝𐺀𐺢:", lblBoys: "👦𐺞𐺣𐺎:", lblGirls: "👧 𐺞𐺦𐺈:", btnSave: "✅ 𐺋𐺀𐺟𐺍𐺄𐺌𐺢", btnCancel: "𐺄𐺌𐺢𐺀", successHead: "𐺏𐺀𐺟𐺱𐺢 𐺧𐺀𐺄𐺌𐺢 𐺋𐺀𐺟𐺌𐺍𐺄𐺦𐺢!", successMsg: "𐺞𐺦𐺠𐺞 𐺠𐺦𐺠𐺢𐺣𐺢.", btnBack: " 𐺛𐺦𐺟𐺩𐺍𐺦 𐺃𐺀𐺠𐺩 𐺁𐺀𐺍𐺨", optRegDef: "𐺧𐺦𐺍𐺩𐺡𐺦 𐺀𐺊𐺄𐺀𐺍𐺝𐺀", optPerDef: "Kategoriyê hilbijêre", optClsDef: "𐺆𐺨𐺢𐺦 𐺧𐺌𐺠𐺁𐺌𐺐𐺩𐺍𐺦 ", optMarDef: "Rewşê hilbijêre", optCm: "👦𐺞𐺣𐺍𐺞", optCf: "👧𐺞𐺦𐺈𐺌𐺞", optYm: "🧑 𐺑𐺨𐺁𐺀", optYf: "🧑𐺞𐺦𐺈", optM: "👨 𐺡𐺩𐺍", optW: "👩 𐺐𐺌𐺢", optOm: "👴 𐺞𐺀𐺠", optOf: "👵𐺂𐺨𐺍", optSheikh: "𐺒𐺩𐺊:", optPir: "𐺃𐺨𐺍", optMurid: "𐺡𐺌𐺍𐺨𐺋", optMm: "𐺏𐺦𐺣𐺌𐺆𐺨 (𐺡𐺩𐺍)", optMf: "𐺏𐺦𐺣𐺌𐺆𐺨 (𐺐𐺌𐺢)", optSm: "𐺢𐺀 𐺏𐺦𐺣𐺆𐺨 𐺡𐺩𐺍 ", optSf: "𐺢𐺀 𐺏𐺦𐺣𐺆𐺨 𐺐𐺌𐺢",
+                alertFill: "Ji kerema xwe re tiştên pêwîst tije bikin.", alertChildrenSum: "Tevahiya kuř û keça divê wek hejmara zarokan be.", alertSubmitted: "Te berê zanînên xwe tomarkirine."
+            },
+            en: {
+                dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Home", navAdd: "Add Data", headerTitle: "Yazidi Population Statistics", btnAdd: "Add Person / Family Data", totalPop: "Total Registered Population", male: "👨 Male", female: "👩 Female", titleAge: "👨‍👩‍👧 Age & Gender", cat: "Category", m: "Male", f: "Female", tot: "Total", child: "👶 Children", young: "🧑 Youth", men: "👨 Men", women: "👩 Women", old: "👴 Elderly", allTot: "Grand Total",
+                titleClass: "👥 Sheikh, Pir & Murid", cls: "Class", cm: "Male", cf: "Female", cc: "Children", ctot: "Total", sheikh: "Sheikh", pir: "Pir", murid: "Murid",
+                titleRegion: "🌍 Geographical Distribution by Country", thRegName: "Region / Country", thRegCount: "Registered Population", thRegPct: "Percentage (%)",
+                regSinjar: "Sinjar", regGermany: "Germany", regIraq: "Iraq (Rest)", regSyria: "Syria", regGeorgia: "Georgia", regRussia: "Russia", regArmenia: "Armenia", regTurkey: "Turkey", regOther: "Other Countries",
+                formHead: "👤 Statistical Info", lblRegion: "📍 Select Region / Country:", lblPerson: "👤 Age & Gender Group:", lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:", btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "Thank you for your contribution.", btnBack: "Back to Home", optRegDef: "Select Region", optPerDef: "Select Category", optClsDef: "Select Class", optMarDef: "Select Status", optCm: "👦 Boy", optCf: "👧 Girl", optYm: "🧑 Young Man", optYf: "🧑 Young Woman", optM: "👨 Man", optW: "👩 Woman", optOm: "👴 Elderly Man", optOf: "👵 Elderly Woman", optSheikh: "Sheikh", optPir: "Pir", optMurid: "Murid", optMm: "Married Man", optMf: "Married Woman", optSm: "Single Man", optSf: "Single Woman",
+                alertFill: "Please fill in all required fields.", alertChildrenSum: "The sum of boys and girls must equal total children.", alertSubmitted: "You have already submitted your information."
+            },
+            de: {
+                dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Startseite", navAdd: "Daten hinzufügen", headerTitle: "Jesidische Bevölkerungsstatistik", btnAdd: "Personen- / Familiendaten hinzufügen", totalPop: "Gesamtbevölkerung Registriert", male: "👨 Männer", female: "👩 Frauen", titleAge: "👨‍👩‍👧 Alter & Geschlecht", cat: "Kategorie", m: "Männlich", f: "Weiblich", tot: "Gesamt", child: "👶 Kinder", young: "🧑 Jugendliche", men: "👨 Männer", women: "👩 Frauen", old: "👴 Senioren", allTot: "Gesamtsumme",
+                titleClass: "👥 Scheich, Pir & Murid", cls: "Kaste", cm: "Männlich", cf: "Weiblich", cc: "Kinder", ctot: "Gesamt", sheikh: "Scheich", pir: "Pir", murid: "Murid",
+                titleRegion: "🌍 Geografische Verteilung nach Ländern", thRegName: "Region / Land", thRegCount: "Registrierte Bevölkerung", thRegPct: "Prozentsatz (%)",
+                regSinjar: "Sindschar", regGermany: "Deutschland", regIraq: "Irak (Rest)", regSyria: "Syrien", regGeorgia: "Georgien", regRussia: "Russland", regArmenia: "Armenien", regTurkey: "Türkei", regOther: "Andere Länder",
+                formHead: "👤 Statistische Angaben", lblRegion: "📍 Region / Land auswählen:", lblPerson: "👤 Alters- & Geschlechtsgruppe:", lblClass: "👥 Soziale Kaste:", lblMarital: "💍 Familienstand:", lblChildrenCount: "👶 Anzahl der Kinder:", lblBoys: "👦 Jungen:", lblGirls: "👧 Mädchen:", btnSave: "✅ Speichern", btnCancel: "Abbrechen", successHead: "Daten erfolgreich gespeichert!", successMsg: "Vielen Dank für Ihren Beitrag.", btnBack: "Zurück zur Hauptseite", optRegDef: "Region wählen", optPerDef: "Kategorie wählen", optClsDef: "Kaste wählen", optMarDef: "Status wählen", optCm: "👦 Junge", optCf: "👧 Mädchen", optYm: "🧑 Junger Mann", optYf: "🧑 Junge Frau", optM: "👨 Mann", optW: "👩 Frau", optOm: "👴 Älterer Mann", optOf: "👵 Ältere Frau", optSheikh: "Scheich", optPir: "Pir", optMurid: "Murid", optMm: "Verheiratet (Mann)", optMf: "Verheiratet (Frau)", optSm: "Ledig (Mann)", optSf: "Ledig (Frau)",
+                alertFill: "Bitte füllen Sie alle erforderlichen Felder aus.", alertChildrenSum: "Die Summe aus Jungen und Mädchen muss mit der Gesamtzahl der Kinder übereinstimmen.", alertSubmitted: "Sie haben Ihre Daten bereits eingegeben."
+            },
+            nl: {
+                dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Startpagina", navAdd: "Gegevens toevoegen", headerTitle: "Jezidische Bevolkingsstatistieken", btnAdd: "Persoons- / Familiegegevens toevoegen", totalPop: "Totaal Geregistreerde Bevolking", male: "👨 Mannen", female: "👩 Vrouwen", titleAge: "👨‍👩‍👧 Leeftijd & Geslacht", cat: "Categorie", m: "Man", f: "Vrouw", tot: "Totaal", child: "👶 Kinderen", young: "🧑 Jongeren", men: "👨 Mannen", women: "👩 Vrouwen", old: "👴 Ouderen", allTot: "Eindtotaal",
+                titleClass: "👥 Sjeik, Pir & Murid", cls: "Kaste", cm: "Man", cf: "Vrouw", cc: "Kinderen", ctot: "Totaal", sheikh: "Sjeik", pir: "Pir", murid: "Murid",
+                titleRegion: "🌍 Geografische Spreiding per Land", thRegName: "Regio / Land", thRegCount: "Geregistreerde Bevolking", thRegPct: "Percentage (%)",
+                regSinjar: "Sinjar", regGermany: "Duitsland", regIraq: "Irak (Overige)", regSyria: "Syrië", regGeorgia: "Georgië", regRussia: "Rusland", regArmenia: "Armenië", regTurkey: "Turkije", regOther: "Andere Landen",
+                formHead: "👤 Statistische Informatie", lblRegion: "📍 Selecteer Regio / Land:", lblPerson: "👤 Leeftijd & Geslachtsgroep:", lblClass: "👥 Sociale Kaste:", lblMarital: "💍 Burgerlijke Staat:", lblChildrenCount: "👶 Aantal Kinderen:", lblBoys: "👦 Jongens:", lblGirls: "👧 Meisjes:", btnSave: "✅ Opslaan", btnCancel: "Annuleren", successHead: "Gegevens Succesvol Opgeslagen!", successMsg: "Bedankt voor uw bijdrage.", btnBack: "Terug naar Startpagina", optRegDef: "Selecteer Regio", optPerDef: "Selecteer Categorie", optClsDef: "Selecteer Kaste", optMarDef: "Selecteer Status", optCm: "👦 Jongen", optCf: "👧 Meisje", optYm: "🧑 Jonge Man", optYf: "🧑 Jonge Vrouw", optM: "👨 Man", optW: "👩 Vrouw", optOm: "👴 Oudere Man", optOf: "👵 Oudere Vrouw", optSheikh: "Sjeik", optPir: "Pir", optMurid: "Murid", optMm: "Getrouwd (Man)", optMf: "Getrouwd (Vrouw)", optSm: "Ongehuwd (Man)", optSf: "Ongehuwd (Vrouw)",
+                alertFill: "Vul a.u.b. alle verplichte velden in.", alertChildrenSum: "Het aantal jongens en meisjes moet gelijk zijn aan het totale aantal kinderen.", alertSubmitted: "U heeft uw gegevens al ingediend."
+            },
+            fr: {
+                dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Accueil", navAdd: "Ajouter des données", headerTitle: "Statistiques de la Population Yézidie", btnAdd: "Ajouter Données Personne / Famille", totalPop: "Population Totale Enregistrée", male: "👨 Hommes", female: "👩 Femmes", titleAge: "👨‍👩‍👧 Âge & Sexe", cat: "Catégorie", m: "Homme", f: "Femme", tot: "Total", child: "👶 Enfants", young: "🧑 Jeunes", men: "👨 Hommes", women: "👩 Femmes", old: "👴 Personnes Âgées", allTot: "Total Général",
+                titleClass: "👥 Cheikh, Pir & Mourid", cls: "Classe", cm: "Homme", cf: "Femme", cc: "Enfants", ctot: "Total", sheikh: "Cheikh", pir: "Pir", murid: "Mourid",
+                titleRegion: "🌍 Répartition Géographique par Pays", thRegName: "Région / Pays", thRegCount: "Population Enregistrée", thRegPct: "Pourcentage (%)",
+                regSinjar: "Sinjar", regGermany: "Allemagne", regIraq: "Irak (Autre)", regSyria: "Syrie", regGeorgia: "Géorgie", regRussia: "Russie", regArmenia: "Arménie", regTurkey: "Turquie", regOther: "Autres Pays",
+                formHead: "👤 Informations Statistiques", lblRegion: "📍 Sélectionner Région / Pays:", lblPerson: "👤 Groupe d'Âge et de Sexe:", lblClass: "👥 Classe Sociale:", lblMarital: "💍 État Civil:", lblChildrenCount: "👶 Nombre d'Enfants:", lblBoys: "👦 Garçons:", lblGirls: "👧 Filles:", btnSave: "✅ Enregistrer", btnCancel: "Annuler", successHead: "Données Enregistrées avec Succès!", successMsg: "Merci pour votre contribution.", btnBack: "Retour à l'Accueil", optRegDef: "Sélectionner la région", optPerDef: "Sélectionner la catégorie", optClsDef: "Sélectionner la classe", optMarDef: "Sélectionner le statut", optCm: "👦 Garçon", optCf: "👧 Fille", optYm: "🧑 Jeune Homme", optYf: "🧑 Jeune Femme", optM: "👨 Homme", optW: "👩 Femme", optOm: "👴 Homme Âgé", optOf: "👵 Femme Âgée", optSheikh: "Cheikh", optPir: "Pir", optMurid: "Mourid", optMm: "Marié", optMf: "Mariée", optSm: "Célibataire (Homme)", optSf: "Célibataire (Femme)",
+                alertFill: "Veuillez remplir tous les champs obligatoires.", alertChildrenSum: "La somme des garçons et des filles doit être égale au total des enfants.", alertSubmitted: "Vous avez déjà soumis vos informations."
+            },
+            es: {
+                dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Inicio", navAdd: "Añadir Datos", headerTitle: "Estadísticas de la Población Yazidí", btnAdd: "Añadir Datos de Persona / Familia", totalPop: "Población Total Registrada", male: "👨 Hombres", female: "👩 Mujeres", titleAge: "👨‍👩‍👧 Edad y Género", cat: "Categoría", m: "Hombre", f: "Mujer", tot: "Total", child: "👶 Niños", young: "🧑 Jóvenes", men: "👨 Hombres", women: "👩 Mujeres", old: "👴 Ancianos", allTot: "Gran Total",
+                titleClass: "👥 Sheik, Pir y Murid", cls: "Clase", cm: "Hombre", cf: "Mujer", cc: "Niños", ctot: "Total", sheikh: "Sheik", pir: "Pir", murid: "Murid",
+                titleRegion: "🌍 Distribución Geográfica por País", thRegName: "Región / País", thRegCount: "Población Registrada", thRegPct: "Porcentaje (%)",
+                regSinjar: "Sinjar", regGermany: "Alemania", regIraq: "Irak (Resto)", regSyria: "Siria", regGeorgia: "Georgia", regRussia: "Rusia", regArmenia: "Armenia", regTurkey: "Turquía", regOther: "Otros Países",
+                formHead: "👤 Información Estadística", lblRegion: "📍 Seleccionar Región / País:", lblPerson: "👤 Grupo de Edad y Género:", lblClass: "👥 Clase Social:", lblMarital: "💍 Estado Civil:", lblChildrenCount: "👶 Número de Hijos:", lblBoys: "👦 Niños:", lblGirls: "👧 Niñas:", btnSave: "✅ Guardar Datos", btnCancel: "Cancelar", successHead: "¡Datos Guardados con Éxito!", successMsg: "Gracias por su contribución.", btnBack: "Volver al Inicio", optRegDef: "Seleccionar Región", optPerDef: "Seleccionar Categoría", optClsDef: "Seleccionar Clase", optMarDef: "Seleccionar Estado", optCm: "👦 Niño", optCf: "👧 Niña", optYm: "🧑 Joven Hombre", optYf: "🧑 Joven Mujer", optM: "👨 Hombre", optW: "👩 Mujer", optOm: "👴 Anciano", optOf: "👵 Anciana", optSheikh: "Sheik", optPir: "Pir", optMurid: "Murid", optMm: "Casado", optMf: "Casada", optSm: "Soltero", optSf: "Soltera",
+                alertFill: "Por favor complete todos los campos requeridos.", alertChildrenSum: "La suma de niños y niñas debe ser igual al total de hijos.", alertSubmitted: "Ya ha enviado su información."
+            },
+            ru: {
+                dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Главная", navAdd: "Добавить данные", headerTitle: "Езидская Статистика Населения", btnAdd: "Добавить данные человека / семьи", totalPop: "Всего Зарегистрировано", male: "👨 Мужчины", female: "👩 Женщины", titleAge: "👨‍👩‍👧 Возраст и Пол", cat: "Категория", m: "Муж", f: "Жен", tot: "Всего", child: "👶 Дети", young: "🧑 Молодежь", men: "👨 Мужчины", women: "👩 Женщины", old: "👴 Пожилые", allTot: "Итого",
+                titleClass: "👥 Шейх, Пир и Мурид", cls: "Каста", cm: "Муж", cf: "Жен", cc: "Дети", ctot: "Всего", sheikh: "Шейх", pir: "Пир", murid: "Мурид",
+                titleRegion: "🌍 Географическое Распределение по Странам", thRegName: "Регион / Страна", thRegCount: "Зарегистрированное Население", thRegPct: "Процент (%)",
+                regSinjar: "Синджар", regGermany: "Германия", regIraq: "Ирак (Остальное)", regSyria: "Сирия", regGeorgia: "Грузия", regRussia: "Россия", regArmenia: "Армения", regTurkey: "Турция", regOther: "Другие Страны",
+                formHead: "👤 Статистическая Информация", lblRegion: "📍 Выберите Регион / Страну:", lblPerson: "👤 Возрастная и Половая Группа:", lblClass: "👥 Социальная Каста:", lblMarital: "💍 Семейное Положение:", lblChildrenCount: "👶 Количество Детей:", lblBoys: "👦 Мальчики:", lblGirls: "👧 Девочки:", btnSave: "✅ Сохранить", btnCancel: "Отмена", successHead: "Данные Успешно Сохранены!", successMsg: "Спасибо за ваш вклад.", btnBack: "На Главную", optRegDef: "Выберите регион", optPerDef: "Выберите категорию", optClsDef: "Выберите касту", optMarDef: "Выберите статус", optCm: "👦 Мальчик", optCf: "👧 Девочка", optYm: "🧑 Молодой человек", optYf: "🧑 Девушка", optM: "👨 Мужчина", optW: "👩 Женщина", optOm: "👴 Пожилой мужчина", optOf: "👵 Пожилая женщина", optSheikh: "Шейх", optPir: "Пир", optMurid: "Мурид", optMm: "Женат", optMf: "Замужем", optSm: "Холост", optSf: "Не замужем",
+                alertFill: "Пожалуйста, заполните все обязательные поля.", alertChildrenSum: "Сумма мальчиков и девочек должна быть равна общему количеству детей.", alertSubmitted: "Вы уже отправили свои данные."
+            }
+        };
+
+        let currentLang = 'ar';
+
+        function changeLanguage(lang) {
+            currentLang = translations[lang] ? lang : 'ar';
+            const t = translations[currentLang];
+            
+            document.getElementById("htmlTag").dir = t.dir;
+            document.getElementById("doc-title").textContent = t.appTitle;
+            document.getElementById("txt-app-title").textContent = t.appTitle;
+            document.getElementById("txt-nav-home").textContent = t.navHome;
+            document.getElementById("txt-nav-add").textContent = t.navAdd;
+            document.getElementById("txt-header-title").textContent = t.headerTitle;
+            document.getElementById("txt-btn-add").textContent = t.btnAdd;
+            document.getElementById("txt-total-pop").textContent = t.totalPop;
+            document.getElementById("txt-male").textContent = t.male;
+            document.getElementById("txt-female").textContent = t.female;
+            document.getElementById("txt-title-age").textContent = t.titleAge;
+            document.getElementById("th-cat").textContent = t.cat;
+            document.getElementById("th-m").textContent = t.m;
+            document.getElementById("th-f").textContent = t.f;
+            document.getElementById("th-tot").textContent = t.tot;
+            document.getElementById("td-child").textContent = t.child;
+            document.getElementById("td-young").textContent = t.young;
+            document.getElementById("td-men").textContent = t.men;
+            document.getElementById("td-women").textContent = t.women;
+            document.getElementById("td-old").textContent = t.old;
+            document.getElementById("td-all-tot").textContent = t.allTot;
+            document.getElementById("txt-title-class").textContent = t.titleClass;
+            document.getElementById("th-cls").textContent = t.cls;
+            document.getElementById("th-cm").textContent = t.cm;
+            document.getElementById("th-cf").textContent = t.cf;
+            document.getElementById("th-cc").textContent = t.cc;
+            document.getElementById("th-ctot").textContent = t.ctot;
+            document.getElementById("td-sheikh").textContent = t.sheikh;
+            document.getElementById("td-pir").textContent = t.pir;
+            document.getElementById("td-murid").textContent = t.murid;
+            document.getElementById("td-call-tot").textContent = t.allTot;
+
+            document.getElementById("txt-title-region").textContent = t.titleRegion;
+            document.getElementById("th-reg-name").textContent = t.thRegName;
+            document.getElementById("th-reg-count").textContent = t.thRegCount;
+            document.getElementById("th-reg-pct").textContent = t.thRegPct;
+            document.getElementById("reg-sinjar").textContent = t.regSinjar;
+            document.getElementById("reg-germany").textContent = t.regGermany;
+            document.getElementById("reg-iraq").textContent = t.regIraq;
+            document.getElementById("reg-syria").textContent = t.regSyria;
+            document.getElementById("reg-georgia").textContent = t.regGeorgia;
+            document.getElementById("reg-russia").textContent = t.regRussia;
+            document.getElementById("reg-armenia").textContent = t.regArmenia;
+            document.getElementById("reg-turkey").textContent = t.regTurkey;
+            document.getElementById("reg-other").textContent = t.regOther;
+
+            document.getElementById("txt-form-head").textContent = t.formHead;
+            document.getElementById("lbl-region").textContent = t.lblRegion;
+            document.getElementById("lbl-person").textContent = t.lblPerson;
+            document.getElementById("lbl-class").textContent = t.lblClass;
+            document.getElementById("lbl-marital").textContent = t.lblMarital;
+            document.getElementById("lbl-children-count").textContent = t.lblChildrenCount;
+            document.getElementById("lbl-boys").textContent = t.lblBoys;
+            document.getElementById("lbl-girls").textContent = t.lblGirls;
+            document.getElementById("btn-save").textContent = t.btnSave;
+            document.getElementById("btn-cancel").textContent = t.btnCancel;
+            document.getElementById("txt-success-head").textContent = t.successHead;
+            document.getElementById("txt-success-msg").textContent = t.successMsg;
+            document.getElementById("btn-back").textContent = t.btnBack;
+            document.getElementById("opt-reg-def").textContent = t.optRegDef;
+            document.getElementById("opt-reg-sinjar").textContent = t.regSinjar;
+            document.getElementById("opt-reg-germany").textContent = t.regGermany;
+            document.getElementById("opt-reg-iraq").textContent = t.regIraq;
+            document.getElementById("opt-reg-syria").textContent = t.regSyria;
+            document.getElementById("opt-reg-georgia").textContent = t.regGeorgia;
+            document.getElementById("opt-reg-russia").textContent = t.regRussia;
+            document.getElementById("opt-reg-armenia").textContent = t.regArmenia;
+            document.getElementById("opt-reg-turkey").textContent = t.regTurkey;
+            document.getElementById("opt-reg-other").textContent = t.regOther;
+            document.getElementById("opt-per-def").textContent = t.optPerDef;
+            document.getElementById("opt-cls-def").textContent = t.optClsDef;
+            document.getElementById("opt-mar-def").textContent = t.optMarDef;
+            document.getElementById("opt-cm").textContent = t.optCm;
+            document.getElementById("opt-cf").textContent = t.optCf;
+            document.getElementById("opt-ym").textContent = t.optYm;
+            document.getElementById("opt-yf").textContent = t.optYf;
+            document.getElementById("opt-m").textContent = t.optM;
+            document.getElementById("opt-w").textContent = t.optW;
+            document.getElementById("opt-om").textContent = t.optOm;
+            document.getElementById("opt-of").textContent = t.optOf;
+            document.getElementById("opt-sheikh").textContent = t.optSheikh;
+            document.getElementById("opt-pir").textContent = t.optPir;
+            document.getElementById("opt-murid").textContent = t.optMurid;
+            document.getElementById("opt-mm").textContent = t.optMm;
+            document.getElementById("opt-mf").textContent = t.optMf;
+            document.getElementById("opt-sm").textContent = t.optSm;
+            document.getElementById("opt-sf").textContent = t.optSf;
+        }
+
+        let alreadySubmitted = localStorage.getItem("yazidiSubmitted") === "true";
+
+        function showHome() {
+            document.getElementById("homeSection").style.display = "block";
+            document.getElementById("formSection").style.display = "none";
+            document.getElementById("successSection").style.display = "none";
+        }
+
+        function showForm() {
+            if (alreadySubmitted) {
+                alert(translations[currentLang].alertSubmitted);
+                return;
+            }
+            document.getElementById("homeSection").style.display = "none";
+            document.getElementById("successSection").style.display = "none";
+            document.getElementById("formSection").style.display = "block";
+        }
+
+        function marriageChanged() {
+            let val = document.getElementById("marital").value;
+            document.getElementById("childrenBox").style.display = (val === "marriedMale" || val === "marriedFemale") ? "block" : "none";
+        }
+
+        function childrenChanged() {
+            let num = Number(document.getElementById("children").value);
+            document.getElementById("childrenGender").style.display = num > 0 ? "grid" : "none";
+        }
+
+        db.ref("public_stats").on("value", (snapshot) => {
+            let data = snapshot.val() || {
+                total: 0, male: 0, female: 0, childMale: 0, childFemale: 0, youngMale: 0, youngFemale: 0,
+                men: 0, women: 0, oldMale: 0, oldFemale: 0,
+                sheikhMale: 0, sheikhFemale: 0, sheikhChildren: 0,
+                pirMale: 0, pirFemale: 0, pirChildren: 0,
+                muridMale: 0, muridFemale: 0, muridChildren: 0,
+                regions: {}
+            };
+            updateUI(data);
+        });
+
+        function addFamily() {
+            let region = document.getElementById("region").value;
+            let person = document.getElementById("person").value;
+            let classType = document.getElementById("classType").value;
+            let marital = document.getElementById("marital").value;
+
+            if (!region || !person || !classType || !marital) {
+                alert(translations[currentLang].alertFill);
+                return;
+            }
+
+            let isMale = person === "childMale" || person === "youngMale" || person === "man" || person === "oldMale";
+            let isFemale = person === "childFemale" || person === "youngFemale" || person === "woman" || person === "oldFemale";
+            let children = 0, boys = 0, girls = 0;
+
+            if (marital === "marriedMale" || marital === "marriedFemale") {
+                children = Number(document.getElementById("children").value || 0);
+                boys = Number(document.getElementById("boys").value || 0);
+                girls = Number(document.getElementById("girls").value || 0);
+
+                if (boys + girls !== children) {
+                    alert(translations[currentLang].alertChildrenSum);
+                    return;
+                }
+            }
+
+            let inc = (path, val = 1) => {
+                db.ref("public_stats/" + path).transaction(curr => (curr || 0) + val);
+            };
+
+            inc("total", 1 + children);
+            if (isMale) inc("male", 1);
+            if (isFemale) inc("female", 1);
+            if (boys > 0) inc("male", boys);
+            if (girls > 0) inc("female", girls);
+            if (boys > 0) inc("childMale", boys);
+            if (girls > 0) inc("childFemale", girls);
+
+            if (person === "childMale") inc("childMale", 1);
+            if (person === "childFemale") inc("childFemale", 1);
+            if (person === "youngMale") inc("youngMale", 1);
+            if (person === "youngFemale") inc("youngFemale", 1);
+            if (person === "man") inc("men", 1);
+            if (person === "woman") inc("women", 1);
+            if (person === "oldMale") inc("oldMale", 1);
+            if (person === "oldFemale") inc("oldFemale", 1);
+
+            inc("regions/" + region, 1 + children);
+
+            if (classType === "sheikh") {
+                if (isMale) inc("sheikhMale", 1);
+                if (isFemale) inc("sheikhFemale", 1);
+                if (children > 0) inc("sheikhChildren", children);
+            } else if (classType === "pir") {
+                if (isMale) inc("pirMale", 1);
+                if (isFemale) inc("pirFemale", 1);
+                if (children > 0) inc("pirChildren", children);
+            } else if (classType === "murid") {
+                if (isMale) inc("muridMale", 1);
+                if (isFemale) inc("muridFemale", 1);
+                if (children > 0) inc("muridChildren", children);
+            }
+
+            localStorage.setItem("yazidiSubmitted", "true");
+            alreadySubmitted = true;
+
+            lockAddButton();
+            document.getElementById("formSection").style.display = "none";
+            document.getElementById("successSection").style.display = "block";
+        }
+
+        function lockAddButton() {
+            let btn = document.getElementById("addButton");
+            btn.classList.add("disabled");
+            btn.onclick = function() { alert(translations[currentLang].alertSubmitted); };
+        }
+
+        function updateUI(data) {
+            let totalPop = data.total || 0;
+            set("total", totalPop);
+            set("maleTotal", data.male || 0);
+            set("femaleTotal", data.female || 0);
+            set("childMale", data.childMale || 0);
+            set("childFemale", data.childFemale || 0);
+            set("childTotal", (data.childMale || 0) + (data.childFemale || 0));
+            set("youngMale", data.youngMale || 0);
+            set("youngFemale", data.youngFemale || 0);
+            set("youngTotal", (data.youngMale || 0) + (data.youngFemale || 0));
+            set("men", data.men || 0); set("menTotal", data.men || 0);
+            set("women", data.women || 0); set("womenTotal", data.women || 0);
+            set("oldMale", data.oldMale || 0); set("oldFemale", data.oldFemale || 0);
+            set("oldTotal", (data.oldMale || 0) + (data.oldFemale || 0));
+            set("tableMale", data.male || 0); set("tableFemale", data.female || 0); set("tableTotal", totalPop);
+            set("sheikhMale", data.sheikhMale || 0); set("sheikhFemale", data.sheikhFemale || 0); set("sheikhChildren", data.sheikhChildren || 0); set("sheikhTotal", (data.sheikhMale || 0) + (data.sheikhFemale || 0) + (data.sheikhChildren || 0));
+            set("pirMale", data.pirMale || 0); set("pirFemale", data.pirFemale || 0); set("pirChildren", data.pirChildren || 0); set("pirTotal", (data.pirMale || 0) + (data.pirFemale || 0) + (data.pirChildren || 0));
+            set("muridMale", data.muridMale || 0); set("muridFemale", data.muridFemale || 0); set("muridChildren", data.muridChildren || 0); set("muridTotal", (data.muridMale || 0) + (data.muridFemale || 0) + (data.muridChildren || 0));
+            set("classMale", (data.sheikhMale || 0) + (data.pirMale || 0) + (data.muridMale || 0));
+            set("classFemale", (data.sheikhFemale || 0) + (data.pirFemale || 0) + (data.muridFemale || 0));
+            set("classChildren", (data.sheikhChildren || 0) + (data.pirChildren || 0) + (data.muridChildren || 0));
+            set("classTotal", totalPop);
+
+            let regs = data.regions || {};
+            let list = ["sinjar", "germany", "iraq", "syria", "georgia", "russia", "armenia", "turkey", "other"];
+            list.forEach(r => {
+                let count = regs[r] || 0;
+                set("reg-" + r + "-val", count);
+                let pct = totalPop > 0 ? ((count / totalPop) * 100).toFixed(1) : 0;
+                let pb = document.getElementById("pb-" + r);
+                if (pb) pb.style.width = pct + "%";
+            });
+        }
+
+        function set(id, val) {
+            let el = document.getElementById(id);
+            if (el) el.textContent = val;
+        }
+
+        if (alreadySubmitted) lockAddButton();
+    </script>
+</body>
+</html>
