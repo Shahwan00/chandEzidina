@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="ar" dir="rtl" id="htmlTag">
 <head>
     <meta charset="UTF-8">
@@ -301,8 +301,8 @@
             </div>
             <div class="lang-select-box">
                 🌐 <select id="languageSelect" onchange="changeLanguage(this.value)">
-                    <option value="ar">العربية</option>
                     <option value="ezd">𐺩𐺏𐺨𐺋𐺨</option>
+                    <option value="ar">العربية</option>
                     <option value="en">English</option>
                     <option value="de">Deutsch</option>
                     <option value="nl">Nederlands</option>
@@ -572,7 +572,7 @@
             }
         };
 
-        let currentLang = 'ar';
+        let currentLang = 'ezd';
 
         function changeLanguage(lang) {
             currentLang = translations[lang] ? lang : 'ar';
