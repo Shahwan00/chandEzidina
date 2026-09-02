@@ -506,13 +506,7 @@
         const db = firebase.database();
 
         const translations = {
-            ar: {
-                dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "الرئيسية", navAdd: "إضافة بيانات", headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل", male: "👨 ذكور", female: "👩 إناث", titleAge: "👨‍👩‍👧 العمر والجنس", cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع", child: "👶 أطفال", young: "🧑 شباب", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع الكلي",
-                titleClass: "👥 شيخ و بير و مريد", cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل", sheikh: "شيخ", pir: "بير", murid: "مريد",
-                titleRegion: "🌍 التوزيع الجغرافي وحسب الدول", thRegName: "المنطقة / الدولة", thRegCount: "عدد السكان المسجلين", thRegPct: "النسبة المئوية",
-                regSinjar: "شنكال (Shingal)", regGermany: "ألمانيا", regIraq: "العراق (بقية المناطق)", regSyria: "سوريا", regGeorgia: "جورجيا", regRussia: "روسيا", regArmenia: "أرمينيا", regTurkey: "تركيا", regOther: "دول أخرى",
-                formHead: "👤 معلوماتك الإحصائية", lblRegion: "📍 اختر المنطقة / البلد:", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية", optRegDef: "اختر المنطقة", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج", optMf: "متزوجة", optSm: "أعزب", optSf: "عزباء",
-                alertFill: "يرجى إكمال الحقول المطلوبة.", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال المكتوب.", alertSubmitted: "لقد قمت بإدخال بياناتك مسبقاً."
+          
             },
             ezd: {
                 dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "𐺡𐺀𐺠", navAdd: "𐺏𐺩𐺋𐺦𐺝𐺌𐺍𐺌𐺢", headerTitle: "𐺧𐺨𐺐𐺡𐺀𐺍𐺦 𐺊𐺀𐺠𐺝𐺨 𐺨𐺏𐺨𐺋𐺨", btnAdd: "𐺋𐺀𐺝𐺍𐺄𐺢𐺀 𐺢𐺀𐺙 𐺣𐺣 𐺢𐺨𐺒𐺀𐺢 ", totalPop: "𐺝𐺥𐺡 𐺧𐺦𐺡𐺣𐺣", male: "👨 𐺡𐺩𐺍", female: "👩 𐺐𐺌𐺢", titleAge: "👨‍👩‍👧 𐺄𐺦𐺡𐺦𐺢 𐺣 𐺍𐺩𐺟𐺦𐺏", cat: "Fê", m: "𐺡𐺩𐺍", f: "Jin", tot: "𐺄𐺌𐺙𐺀𐺠", child: "👶 𐺏𐺀𐺍𐺥𐺞", young: "🧑 Ciwan", men: "👨 𐺡𐺩𐺍", women: "👩 𐺐𐺌𐺢", old: "👴 𐺞𐺀𐺠 𐺣𐺣 𐺂𐺱𐺍", allTot: "𐺄𐺌𐺙𐺀𐺠",
