@@ -221,27 +221,11 @@
         }
 
         .action-btn:hover { opacity: 0.9; }
-        .action-btn.disabled { background: #4b5563; color: #9ca3af; cursor: not-allowed; }
 
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th, td { padding: 10px 12px; text-align: center; border-bottom: 1px solid var(--border-color); }
         th { background: rgba(255,255,255,0.03); color: var(--primary-gold); }
         .total-row { background: rgba(229, 169, 59, 0.1); font-weight: bold; color: var(--primary-gold); }
-
-        .progress-bar-bg {
-            background: rgba(255,255,255,0.05);
-            border-radius: 4px;
-            height: 8px;
-            width: 100%;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-        .progress-bar-fill {
-            background: var(--primary-gold);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
 
         #formSection { display: none; }
         .form-group { margin-bottom: 15px; }
@@ -376,21 +360,38 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- التوزيع الجغرافي (جديد) -->
+                <div class="card" style="grid-column: 1 / -1;">
+                    <div class="card-title" id="txt-title-geo">🌍 التوزيع الجغرافي (الدول والمدن)</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="th-country">الدولة</th>
+                                <th id="th-area">المنطقة / المدينة</th>
+                                <th id="th-geo-count">عدد المسجلين</th>
+                            </tr>
+                        </thead>
+                        <tbody id="geoTableBody">
+                            <tr>
+                                <td colspan="3" style="color: var(--text-muted);" id="txt-no-geo">لا توجد بيانات جغرافية مسجلة بعد</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <div id="formSection" class="card" style="max-width: 600px; margin: 0 auto;">
             <div class="card-title" id="txt-form-head">👤 معلوماتك الإحصائية</div>
 
-            <!-- حقل كتابة الدولة (اختياري) -->
             <div class="form-group">
-                <label id="lbl-custom-country">🌐 𐺣𐺦𐺠𐺀𐺄 (اسم الدولة - اختياري):</label>
+                <label id="lbl-custom-country">🌐 اسم الدولة (اختياري):</label>
                 <input type="text" id="customCountry" placeholder="...">
             </div>
 
-            <!-- حقل كتابة المنطقة (اختياري) -->
             <div class="form-group">
-                <label id="lbl-custom-area">🏙️ 𐺧𐺦𐺍𐺩𐺡 (اسم المنطقة / المدينة - اختياري):</label>
+                <label id="lbl-custom-area">🏙️ اسم المنطقة / المدينة (اختياري):</label>
                 <input type="text" id="customArea" placeholder="...">
             </div>
 
@@ -475,24 +476,28 @@
             ar: {
                 dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "الرئيسية", navAdd: "إضافة بيانات", headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل", male: "👨 ذكور", female: "👩 إناث", titleAge: "👨‍👩‍👧 العمر والجنس", cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع", child: "👶 أطفال", young: "🧑 شباب", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع الكلي",
                 titleClass: "👥 شيخ و بير و مريد", cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل", sheikh: "شيخ", pir: "بير", murid: "مريد",
+                titleGeo: "🌍 التوزيع الجغرافي (الدول والمدن)", thCountry: "الدولة", thArea: "المنطقة / المدينة", thGeoCount: "عدد المسجلين", txtNoGeo: "لا توجد بيانات جغرافية مسجلة بعد",
                 formHead: "👤 معلوماتك الإحصائية", lblCustomCountry: "🌐 اسم الدولة (اختياري):", lblCustomArea: "🏙️ اسم المنطقة / المدينة (اختياري):", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج", optMf: "متزوجة", optSm: "أعزب", optSf: "عزباء",
                 alertFill: "يرجى إكمال الحقول المطلوبة.", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال المكتوب."
             },
             ezd: {
                 dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "𐺡𐺀𐺠", navAdd: "𐺏𐺩𐺋𐺦𐺝𐺌𐺍𐺌𐺢", headerTitle: "𐺧𐺨𐺐𐺡𐺀𐺍𐺦 𐺊𐺀𐺠𐺝𐺨 𐺨𐺏𐺨𐺋𐺨", btnAdd: "𐺋𐺀𐺝𐺍𐺄𐺢𐺀 𐺢𐺀𐺙 𐺣𐺣 𐺢𐺨𐺒𐺀𐺢 ", totalPop: "𐺝𐺥𐺡 𐺧𐺦𐺡𐺣𐺣", male: "👨 𐺡𐺩𐺍", female: "👩 𐺐𐺌𐺢", titleAge: "👨‍👩‍👧 𐺄𐺦𐺡𐺦𐺢 𐺣 𐺍𐺩𐺟𐺦𐺏", cat: "Fê", m: "𐺡𐺩𐺍", f: "Jin", tot: "𐺄𐺌𐺙𐺀𐺠", child: "👶 𐺏𐺀𐺍𐺥𐺞", young: "🧑 Ciwan", men: "👨 𐺡𐺩𐺍", women: "👩 𐺐𐺌𐺢", old: "👴 𐺞𐺀𐺠 𐺣𐺣 𐺂𐺱𐺍", allTot: "𐺄𐺌𐺙𐺀𐺠",
                 titleClass: "👥 𐺒𐺩𐺊, 𐺂𐺱𐺍 𐺣𐺣 𐺡𐺌𐺍𐺱𐺋", cls: "𐺇𐺨𐺢𐺦 𐺨𐺏𐺨𐺋𐺨", cm: "𐺡𐺩𐺍", cf: "𐺐𐺌𐺢", cc: "𐺏𐺀𐺍𐺥𐺝", ctot: "𐺧𐺦𐺡𐺣𐺣", sheikh: "𐺒𐺩𐺊", pir: "𐺂𐺱𐺍", murid: "𐺡𐺌𐺍𐺱𐺋",
+                titleGeo: "🌍 𐺣𐺦𐺠𐺀𐺄 𐺣𐺣 𐺧𐺦𐺍𐺩𐺡", thCountry: "𐺣𐺦𐺠𐺀𐺄", thArea: "𐺧𐺦𐺍𐺩𐺡", thGeoCount: "𐺝𐺥𐺡", txtNoGeo: "Hêşta ti welat an herêm nehatine tomarkirin",
                 formHead: "👤 Zanînên Statîstîkî", lblCustomCountry: "🌐 Navê Welat (xwestek):", lblCustomArea: "🏙️ Navê Herêmê (xwestek):", lblPerson: "👤 Temen u Rêgez:", lblClass: "👥𐺇𐺨𐺢𐺦 𐺆𐺙𐺀𐺄𐺨:", lblMarital: "💍 Rewşa Zewacê:", lblChildrenCount: "👶𐺧𐺦𐺐𐺡𐺀𐺍𐺀 𐺏𐺀𐺍𐺥𐺝𐺀𐺢:", lblBoys: "👦𐺞𐺣𐺎:", lblGirls: "👧 𐺞𐺦𐺈:", btnSave: "✅ 𐺋𐺀𐺟𐺍𐺄𐺌𐺢", btnCancel: "𐺄𐺌𐺢𐺀", successHead: "𐺏𐺀𐺟𐺱𐺢 𐺧𐺀𐺄𐺌𐺢 𐺋𐺀𐺟𐺌𐺍𐺄𐺦𐺢!", successMsg: "𐺞𐺦𐺠𐺞 𐺠𐺦𐺠𐺢𐺣𐺢.", btnBack: " 𐺛𐺦𐺟𐺩𐺍𐺦 𐺃𐺀𐺠𐺩 𐺁𐺀𐺍𐺨", optPerDef: "Kategoriyê hilbijêre", optClsDef: "𐺆𐺨𐺢𐺦 𐺧𐺌𐺠𐺁𐺌𐺐𐺩𐺍𐺦 ", optMarDef: "Rewşê hilbijêre", optCm: "👦𐺞𐺣𐺍𐺞", optCf: "👧𐺞𐺦𐺈𐺌𐺞", optYm: "🧑 𐺑𐺨𐺁𐺀", optYf: "🧑𐺞𐺦𐺈", optM: "👨 𐺡𐺩𐺍", optW: "👩 𐺐𐺌𐺢", optOm: "👴 𐺞𐺀𐺠", optOf: "👵𐺂𐺨𐺍", optSheikh: "𐺒𐺩𐺊:", optPir: "𐺃𐺨𐺍", optMurid: "𐺡𐺌𐺍𐺨𐺋", optMm: "𐺏𐺦𐺣𐺌𐺆𐺨 (𐺡𐺩𐺍)", optMf: "𐺏𐺦𐺣𐺌𐺆𐺨 (𐺐𐺌𐺢)", optSm: "𐺢𐺀 𐺏𐺦𐺣𐺆𐺨 𐺡𐺩𐺍 ", optSf: "𐺢𐺀 𐺏𐺦𐺣𐺆𐺨 𐺐𐺌𐺢",
                 alertFill: "Ji kerema xwe re tiştên pêwîst tije bikin.", alertChildrenSum: "Tevahiya kuř û keça divê wek hejmara zarokan be."
             },
             en: {
                 dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Home", navAdd: "Add Data", headerTitle: "Yazidi Population Statistics", btnAdd: "Add Person / Family Data", totalPop: "Total Registered Population", male: "👨 Male", female: "👩 Female", titleAge: "👨‍👩‍👧 Age & Gender", cat: "Category", m: "Male", f: "Female", tot: "Total", child: "👶 Children", young: "🧑 Youth", men: "👨 Men", women: "👩 Women", old: "👴 Elderly", allTot: "Grand Total",
                 titleClass: "👥 Sheikh, Pir & Murid", cls: "Class", cm: "Male", cf: "Female", cc: "Children", ctot: "Total", sheikh: "Sheikh", pir: "Pir", murid: "Murid",
+                titleGeo: "🌍 Geographic Distribution (Countries & Cities)", thCountry: "Country", thArea: "Region / City", thGeoCount: "Registered", txtNoGeo: "No geographic data registered yet",
                 formHead: "👤 Statistical Info", lblCustomCountry: "🌐 Country Name (Optional):", lblCustomArea: "🏙️ Region/Area Name (Optional):", lblPerson: "👤 Age & Gender Group:", lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:", btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "Thank you for your contribution.", btnBack: "Back to Home", optPerDef: "Select Category", optClsDef: "Select Class", optMarDef: "Select Status", optCm: "👦 Boy", optCf: "👧 Girl", optYm: "🧑 Young Man", optYf: "🧑 Young Woman", optM: "👨 Man", optW: "👩 Woman", optOm: "👴 Elderly Man", optOf: "👵 Elderly Woman", optSheikh: "Sheikh", optPir: "Pir", optMurid: "Murid", optMm: "Married Man", optMf: "Married Woman", optSm: "Single Man", optSf: "Single Woman",
                 alertFill: "Please fill in all required fields.", alertChildrenSum: "The sum of boys and girls must equal total children."
             },
             de: {
                 dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Startseite", navAdd: "Daten hinzufügen", headerTitle: "Jesidische Bevölkerungsstatistik", btnAdd: "Personen- / Familiendaten hinzufügen", totalPop: "Gesamtbevölkerung Registriert", male: "👨 Männer", female: "👩 Frauen", titleAge: "👨‍👩‍👧 Alter & Geschlecht", cat: "Kategorie", m: "Männlich", f: "Weiblich", tot: "Gesamt", child: "👶 Kinder", young: "🧑 Jugendliche", men: "👨 Männer", women: "👩 Frauen", old: "👴 Senioren", allTot: "Gesamtsumme",
                 titleClass: "👥 Scheich, Pir & Murid", cls: "Kaste", cm: "Männlich", cf: "Weiblich", cc: "Kinder", ctot: "Gesamt", sheikh: "Scheich", pir: "Pir", murid: "Murid",
+                titleGeo: "🌍 Geografische Verteilung (Länder & Städte)", thCountry: "Land", thArea: "Region / Stadt", thGeoCount: "Registriert", txtNoGeo: "Noch keine geografischen Daten registriert",
                 formHead: "👤 Statistische Angaben", lblCustomCountry: "🌐 Ländername (Optional):", lblCustomArea: "🏙️ Region/Stadt (Optional):", lblPerson: "👤 Alters- & Geschlechtsgruppe:", lblClass: "👥 Soziale Kaste:", lblMarital: "💍 Familienstand:", lblChildrenCount: "👶 Anzahl der Kinder:", lblBoys: "👦 Jungen:", lblGirls: "👧 Mädchen:", btnSave: "✅ Speichern", btnCancel: "Abbrechen", successHead: "Daten erfolgreich gespeichert!", successMsg: "Vielen Dank für Ihren Beitrag.", btnBack: "Zurück zur Hauptseite", optPerDef: "Kategorie wählen", optClsDef: "Kaste wählen", optMarDef: "Status wählen", optCm: "👦 Junge", optCf: "👧 Mädchen", optYm: "🧑 Junger Mann", optYf: "🧑 Junge Frau", optM: "👨 Mann", optW: "👩 Frau", optOm: "👴 Älterer Mann", optOf: "👵 Ältere Frau", optSheikh: "Scheich", optPir: "Pir", optMurid: "Murid", optMm: "Verheiratet (Mann)", optMf: "Verheiratet (Frau)", optSm: "Ledig (Mann)", optSf: "Ledig (Frau)",
                 alertFill: "Bitte füllen Sie alle erforderlichen Felder aus.", alertChildrenSum: "Die Summe aus Jungen und Mädchen muss mit der Gesamtzahl der Kinder übereinstimmen."
             }
@@ -534,6 +539,11 @@
             document.getElementById('td-sheikh').innerText = t.sheikh;
             document.getElementById('td-pir').innerText = t.pir;
             document.getElementById('td-murid').innerText = t.murid;
+
+            document.getElementById('txt-title-geo').innerText = t.titleGeo;
+            document.getElementById('th-country').innerText = t.thCountry;
+            document.getElementById('th-area').innerText = t.thArea;
+            document.getElementById('th-geo-count').innerText = t.thGeoCount;
             
             document.getElementById('txt-form-head').innerText = t.formHead;
             document.getElementById('lbl-custom-country').innerText = t.lblCustomCountry;
@@ -607,8 +617,8 @@
             const person = document.getElementById('person').value;
             const classType = document.getElementById('classType').value;
             const marital = document.getElementById('marital').value;
-            const customCountry = document.getElementById('customCountry').value;
-            const customArea = document.getElementById('customArea').value;
+            const customCountry = document.getElementById('customCountry').value.trim();
+            const customArea = document.getElementById('customArea').value.trim();
             const children = parseInt(document.getElementById('children').value) || 0;
             const boys = parseInt(document.getElementById('boys').value) || 0;
             const girls = parseInt(document.getElementById('girls').value) || 0;
@@ -629,8 +639,8 @@
                 person,
                 classType,
                 marital,
-                country: customCountry,
-                area: customArea,
+                country: customCountry || 'غير محدد',
+                area: customArea || 'غير محدد',
                 children,
                 boys,
                 girls,
@@ -638,12 +648,21 @@
             };
 
             db.ref('records').push(data).then(() => {
+                document.getElementById('customCountry').value = '';
+                document.getElementById('customArea').value = '';
+                document.getElementById('person').value = '';
+                document.getElementById('classType').value = '';
+                document.getElementById('marital').value = '';
+                document.getElementById('children').value = '0';
+                document.getElementById('boys').value = '0';
+                document.getElementById('girls').value = '0';
+
                 document.getElementById('formSection').style.display = 'none';
                 document.getElementById('successSection').style.display = 'block';
             });
         }
 
-        // تحميل وتحديث البيانات من Firebase Realtime Database
+        // تحميل البيانات والتحديث التلقائي
         db.ref('records').on('value', (snapshot) => {
             const data = snapshot.val();
             let stats = {
@@ -654,11 +673,15 @@
                 muridM: 0, muridF: 0, muridC: 0
             };
 
+            let geoMap = {};
+
             if (data) {
                 Object.values(data).forEach(item => {
                     let isMale = item.person.includes('Male') || item.person === 'man';
                     let isChild = item.person.includes('child');
                     
+                    let personCount = 1 + (item.children || 0);
+
                     if (isChild) {
                         if (isMale) stats.childM++; else stats.childF++;
                     } else if (item.person.includes('young')) {
@@ -671,7 +694,7 @@
                         if (isMale) stats.oldM++; else stats.oldF++;
                     }
 
-                    // حساب الطبقات الإجتماعية
+                    // طبقات
                     if (item.classType === 'sheikh') {
                         if (isChild) stats.sheikhC++; else if (isMale) stats.sheikhM++; else stats.sheikhF++;
                     } else if (item.classType === 'pir') {
@@ -680,7 +703,7 @@
                         if (isChild) stats.muridC++; else if (isMale) stats.muridM++; else stats.muridF++;
                     }
 
-                    // إضافة الأطفال المرفقين بالأسرة
+                    // أطفال العائلة
                     if (item.children > 0) {
                         stats.childM += item.boys;
                         stats.childF += item.girls;
@@ -688,10 +711,20 @@
                         if (item.classType === 'pir') stats.pirC += item.children;
                         if (item.classType === 'murid') stats.muridC += item.children;
                     }
+
+                    // تجميع المناطق الجغرافية
+                    const countryKey = item.country || 'غير محدد';
+                    const areaKey = item.area || 'غير محدد';
+                    const geoKey = countryKey + " - " + areaKey;
+
+                    if (!geoMap[geoKey]) {
+                        geoMap[geoKey] = { country: countryKey, area: areaKey, count: 0 };
+                    }
+                    geoMap[geoKey].count += personCount;
                 });
             }
 
-            // إحصائيات العمر والجنس
+            // تحديث الجدول العمر والجنس
             document.getElementById('childMale').innerText = stats.childM;
             document.getElementById('childFemale').innerText = stats.childF;
             document.getElementById('childTotal').innerText = stats.childM + stats.childF;
@@ -722,7 +755,7 @@
             document.getElementById('tableFemale').innerText = totalF;
             document.getElementById('tableTotal').innerText = grandTotal;
 
-            // إحصائيات الطبقات
+            // تحديث جدول الطبقات
             document.getElementById('sheikhMale').innerText = stats.sheikhM;
             document.getElementById('sheikhFemale').innerText = stats.sheikhF;
             document.getElementById('sheikhChildren').innerText = stats.sheikhC;
@@ -742,9 +775,29 @@
             document.getElementById('classFemale').innerText = stats.sheikhF + stats.pirF + stats.muridF;
             document.getElementById('classChildren').innerText = stats.sheikhC + stats.pirC + stats.muridC;
             document.getElementById('classTotal').innerText = grandTotal;
+
+            // تحديث جدول التوزيع الجغرافي
+            const geoBody = document.getElementById('geoTableBody');
+            geoBody.innerHTML = '';
+
+            const geoKeys = Object.keys(geoMap);
+            if (geoKeys.length === 0) {
+                const t = translations[currentLang] || translations['ar'];
+                geoBody.innerHTML = `<tr><td colspan="3" style="color: var(--text-muted);">${t.txtNoGeo}</td></tr>`;
+            } else {
+                geoKeys.forEach(key => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${geoMap[key].country}</td>
+                        <td>${geoMap[key].area}</td>
+                        <td style="font-weight:bold; color:var(--primary-gold);">${geoMap[key].count}</td>
+                    `;
+                    geoBody.appendChild(row);
+                });
+            }
         });
 
-        // تشغيل اللغة الافتراضية
+        // تشغيل اللغة
         changeLanguage('ezd');
     </script>
 </body>
