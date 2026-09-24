@@ -330,9 +330,9 @@
                         </thead>
                         <tbody>
                             <tr><td id="td-child">👶 أطفال</td><td id="childMale">0</td><td id="childFemale">0</td><td id="childTotal">0</td></tr>
-                            <tr><td id="td-young">🧑 شباب</td><td id="youngMale">0</td><td id="youngFemale">0</td><td id="youngTotal">0</td></tr>
-                            <tr><td id="td-men">👨 رجال</td><td id="men">0</td><td>—</td><td id="menTotal">0</td></tr>
-                            <tr><td id="td-women">👩 نساء</td><td>—</td><td id="women">0</td><td id="womenTotal">0</td></tr>
+                            <tr><td id="td-young">🧑 شباب / شابات</td><td id="youngMale">0</td><td id="youngFemale">0</td><td id="youngTotal">0</td></tr>
+                            <tr><td id="td-men">👨 رجال (متزوجين / عزاب)</td><td id="men">0</td><td>—</td><td id="menTotal">0</td></tr>
+                            <tr><td id="td-women">👩 نساء (متزوجات / عازبات)</td><td>—</td><td id="women">0</td><td id="womenTotal">0</td></tr>
                             <tr><td id="td-old">👴 كبار السن</td><td id="oldMale">0</td><td id="oldFemale">0</td><td id="oldTotal">0</td></tr>
                             <tr class="total-row"><td id="td-all-tot">المجموع الكلي</td><td id="tableMale">0</td><td id="tableFemale">0</td><td id="tableTotal">0</td></tr>
                         </tbody>
@@ -424,8 +424,8 @@
                 <label id="lbl-marital">💍 الحالة الاجتماعية:</label>
                 <select id="marital" onchange="marriageChanged()">
                     <option value="" id="opt-mar-def">اختر الحالة</option>
-                    <option value="marriedMale" id="opt-mm">متزوج</option>
-                    <option value="marriedFemale" id="opt-mf">متزوجة</option>
+                    <option value="marriedMale" id="opt-mm">متزوج (رجل وزوجته = 2)</option>
+                    <option value="marriedFemale" id="opt-mf">متزوجة (امرأة وزوجها = 2)</option>
                     <option value="singleMale" id="opt-sm">أعزب</option>
                     <option value="singleFemale" id="opt-sf">عزباء</option>
                 </select>
@@ -476,10 +476,10 @@
 
         const translations = {
             ar: {
-                dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "الرئيسية", navAdd: "إضافة بيانات", headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل", male: "👨 ذكور", female: "👩 إناث", titleAge: "👨‍👩‍👧 العمر والجنس", cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع", child: "👶 أطفال", young: "🧑 شباب", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع Sالكلي",
+                dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "الرئيسية", navAdd: "إضافة بيانات", headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل", male: "👨 ذكور", female: "👩 إناث", titleAge: "👨‍👩‍👧 العمر والجنس", cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع", child: "👶 أطفال", young: "🧑 شباب / شابات", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع الكلي",
                 titleClass: "👥 شيخ و بير و مريد", cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل", sheikh: "شيخ", pir: "بير", murid: "مريد",
                 titleGeo: "🌍 التوزيع الجغرافي (الدول والمدن)", thCountry: "الدولة", thArea: "المنطقة / المدينة", thGeoCount: "عدد المسجلين", txtNoGeo: "لا توجد بيانات جغرافية مسجلة بعد",
-                formHead: "👤 معلوماتك الإحصائية", lblCustomCountry: "🌐 اسم الدولة (اختياري):", lblCustomArea: "🏙️ اسم المنطقة / المدينة (اختياري):", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج", optMf: "متزوجة", optSm: "أعزب", optSf: "عزباء",
+                formHead: "👤 معلوماتك الإحصائية", lblCustomCountry: "🌐 اسم الدولة (اختياري):", lblCustomArea: "🏙️ اسم المنطقة / المدينة (اختياري):", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج (رجل وزوجته = 2)", optMf: "متزوجة (امرأة وزوجها = 2)", optSm: "أعزب", optSf: "عزباء",
                 alertFill: "يرجى إكمال الحقول المطلوبة.", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال المكتوب."
             },
             ezd: {
@@ -493,14 +493,14 @@
                 dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Home", navAdd: "Add Data", headerTitle: "Yazidi Population Statistics", btnAdd: "Add Person / Family Data", totalPop: "Total Registered Population", male: "👨 Male", female: "👩 Female", titleAge: "👨‍👩‍👧 Age & Gender", cat: "Category", m: "Male", f: "Female", tot: "Total", child: "👶 Children", young: "🧑 Youth", men: "👨 Men", women: "👩 Women", old: "👴 Elderly", allTot: "Grand Total",
                 titleClass: "👥 Sheikh, Pir & Murid", cls: "Class", cm: "Male", cf: "Female", cc: "Children", ctot: "Total", sheikh: "Sheikh", pir: "Pir", murid: "Murid",
                 titleGeo: "🌍 Geographic Distribution (Countries & Cities)", thCountry: "Country", thArea: "Region / City", thGeoCount: "Registered", txtNoGeo: "No geographic data registered yet",
-                formHead: "👤 Statistical Info", lblCustomCountry: "🌐 Country Name (Optional):", lblCustomArea: "🏙️ Region/Area Name (Optional):", lblPerson: "👤 Age & Gender Group:", lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:", btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "Thank you for your contribution.", btnBack: "Back to Home", optPerDef: "Select Category", optClsDef: "Select Class", optMarDef: "Select Status", optCm: "👦 Boy", optCf: "👧 Girl", optYm: "🧑 Young Man", optYf: "🧑 Young Woman", optM: "👨 Man", optW: "Woman", optOm: "👴 Elderly Man", optOf: "👵 Elderly Woman", optSheikh: "Sheikh", optPir: "Pir", optMurid: "Murid", optMm: "Married Man", optMf: "Married Woman", optSm: "Single Man", optSf: "Single Woman",
+                formHead: "👤 Statistical Info", lblCustomCountry: "🌐 Country Name (Optional):", lblCustomArea: "🏙️ Region/Area Name (Optional):", lblPerson: "👤 Age & Gender Group:", lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:", btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "Thank you for your contribution.", btnBack: "Back to Home", optPerDef: "Select Category", optClsDef: "Select Class", optMarDef: "Select Status", optCm: "👦 Boy", optCf: "👧 Girl", optYm: "🧑 Young Man", optYf: "🧑 Young Woman", optM: "👨 Man", optW: "Woman", optOm: "👴 Elderly Man", optOf: "👵 Elderly Woman", optSheikh: "Sheikh", optPir: "Pir", optMurid: "Murid", optMm: "Married Man (+ Spouse = 2)", optMf: "Married Woman (+ Spouse = 2)", optSm: "Single Man", optSf: "Single Woman",
                 alertFill: "Please fill in all required fields.", alertChildrenSum: "The sum of boys and girls must equal total children."
             },
             de: {
                 dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Startseite", navAdd: "Daten hinzufügen", headerTitle: "Jesidische Bevölkerungsstatistik", btnAdd: "Personen- / Familiendaten hinzufügen", totalPop: "Gesamtbevölkerung Registriert", male: "👨 Männer", female: "👩 Frauen", titleAge: "👨‍👩‍👧 Alter & Geschlecht", cat: "Kategorie", m: "Männlich", f: "Weiblich", tot: "Gesamt", child: "👶 Kinder", young: "🧑 Jugendliche", men: "👨 Männer", women: "👩 Frauen", old: "👴 Senioren", allTot: "Gesamtsumme",
                 titleClass: "👥 Scheich, Pir & Murid", cls: "Kaste", cm: "Männlich", cf: "Weiblich", cc: "Kinder", ctot: "Gesamt", sheikh: "Scheich", pir: "Pir", murid: "Murid",
                 titleGeo: "🌍 Geografische Verteilung (Länder & Städte)", thCountry: "Land", thArea: "Region / Stadt", thGeoCount: "Registriert", txtNoGeo: "Noch keine geografischen Daten registriert",
-                formHead: "👤 Statistische Angaben", lblCustomCountry: "🌐 Ländername (Optional):", lblCustomArea: "🏙️ Region/Stadt (Optional):", lblPerson: "👤 Alters- & Geschlechtsgruppe:", lblClass: "👥 Soziale Kaste:", lblMarital: "💍 Familienstand:", lblChildrenCount: "👶 Anzahl der Kinder:", lblBoys: "👦 Jungen:", lblGirls: "👧 Mädchen:", btnSave: "✅ Speichern", btnCancel: "Abbrechen", successHead: "Daten erfolgreich gespeichert!", successMsg: "Vielen Dank für Ihren Beitrag.", btnBack: "Zurück zur Hauptseite", optPerDef: "Kategorie wählen", optClsDef: "Kaste wählen", optMarDef: "Status wählen", optCm: "👦 Junge", optCf: "👧 Mädchen", optYm: "🧑 Junger Mann", optYf: "🧑 Junge Frau", optM: "👨 Mann", optW: "👩 Frau", optOm: "👴 Älterer Mann", optOf: "👵 Ältere Frau", optSheikh: "Scheich", optPir: "Pir", optMurid: "Murid", optMm: "Verheiratet (Mann)", optMf: "Verheiratet (Frau)", optSm: "Ledig (Mann)", optSf: "Ledig (Frau)",
+                formHead: "👤 Statistische Angaben", lblCustomCountry: "🌐 Ländername (Optional):", lblCustomArea: "🏙️ Region/Stadt (Optional):", lblPerson: "👤 Alters- & Geschlechtsgruppe:", lblClass: "👥 Soziale Kaste:", lblMarital: "💍 Familienstand:", lblChildrenCount: "👶 Anzahl der Kinder:", lblBoys: "👦 Jungen:", lblGirls: "👧 Mädchen:", btnSave: "✅ Speichern", btnCancel: "Abbrechen", successHead: "Daten erfolgreich gespeichert!", successMsg: "Vielen Dank für Ihren Beitrag.", btnBack: "Zurück zur Hauptseite", optPerDef: "Kategorie wählen", optClsDef: "Kaste wählen", optMarDef: "Status wählen", optCm: "👦 Junge", optCf: "👧 Mädchen", optYm: "🧑 Junger Mann", optYf: "🧑 Junge Frau", optM: "👨 Mann", optW: "👩 Frau", optOm: "👴 Älterer Mann", optOf: "👵 Ältere Frau", optSheikh: "Scheich", optPir: "Pir", optMurid: "Murid", optMm: "Verheiratet (Mann + Ehefrau = 2)", optMf: "Verheiratet (Frau + Ehemann = 2)", optSm: "Ledig (Mann)", optSf: "Ledig (Frau)",
                 alertFill: "Bitte füllen Sie alle erforderlichen Felder aus.", alertChildrenSum: "Die Summe aus Jungen und Mädchen muss mit der Gesamtzahl der Kinder übereinstimmen."
             }
         };
@@ -704,28 +704,64 @@
                 Object.values(data).forEach(item => {
                     let isMale = item.person.includes('Male') || item.person === 'man';
                     let isChild = item.person.includes('child');
+                    let isMarried = item.marital === 'marriedMale' || item.marital === 'marriedFemale';
                     
-                    let personCount = 1 + (item.children || 0);
+                    // حساب عدد الأشخاص (إذا كان متزوجاً ينحسب الزوج والزوجة معاً = 2)
+                    let personCount = (isMarried ? 2 : 1) + (item.children || 0);
 
+                    // إضافة الفئة الأساسية والشريك في حالة الزواج
                     if (isChild) {
                         if (isMale) stats.childM++; else stats.childF++;
-                    } else if (item.person.includes('young')) {
-                        if (isMale) stats.youngM++; else stats.youngF++;
+                    } else if (item.person === 'youngMale') {
+                        stats.youngM++;
+                        if (isMarried) stats.women++; // إيقاف إضافة الشريكة إن وجدت كبالغة
+                    } else if (item.person === 'youngFemale') {
+                        stats.youngF++;
+                        if (isMarried) stats.men++;
                     } else if (item.person === 'man') {
                         stats.men++;
+                        if (isMarried) stats.women++;
                     } else if (item.person === 'woman') {
                         stats.women++;
+                        if (isMarried) stats.men++;
                     } else if (item.person.includes('old')) {
-                        if (isMale) stats.oldM++; else stats.oldF++;
+                        if (isMale) {
+                            stats.oldM++;
+                            if (isMarried) stats.oldF++;
+                        } else {
+                            stats.oldF++;
+                            if (isMarried) stats.oldM++;
+                        }
                     }
 
-                    // طبقات الشخص الرئيسي
+                    // الطبقات الاجتماعية (الشخص وزوجه/زوجته إن وجد)
                     if (item.classType === 'sheikh') {
-                        if (isChild) stats.sheikhC++; else if (isMale) stats.sheikhM++; else stats.sheikhF++;
+                        if (isChild) {
+                            stats.sheikhC++;
+                        } else {
+                            if (isMale) stats.sheikhM++; else stats.sheikhF++;
+                            if (isMarried) {
+                                if (isMale) stats.sheikhF++; else stats.sheikhM++;
+                            }
+                        }
                     } else if (item.classType === 'pir') {
-                        if (isChild) stats.pirC++; else if (isMale) stats.pirM++; else stats.pirF++;
+                        if (isChild) {
+                            stats.pirC++;
+                        } else {
+                            if (isMale) stats.pirM++; else stats.pirF++;
+                            if (isMarried) {
+                                if (isMale) stats.pirF++; else stats.pirM++;
+                            }
+                        }
                     } else if (item.classType === 'murid') {
-                        if (isChild) stats.muridC++; else if (isMale) stats.muridM++; else stats.muridF++;
+                        if (isChild) {
+                            stats.muridC++;
+                        } else {
+                            if (isMale) stats.muridM++; else stats.muridF++;
+                            if (isMarried) {
+                                if (isMale) stats.muridF++; else stats.muridM++;
+                            }
+                        }
                     }
 
                     // أطفال العائلة الإضافيون (إن وجدوا)
@@ -749,7 +785,7 @@
                 });
             }
 
-            // تحديث الجدول العمر والجنس
+            // تحديث جدول العمر والجنس
             document.getElementById('childMale').innerText = stats.childM;
             document.getElementById('childFemale').innerText = stats.childF;
             document.getElementById('childTotal').innerText = stats.childM + stats.childF;
