@@ -434,7 +434,6 @@
             <div id="childrenBox" style="display:none; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
                 <div class="form-group">
                     <label id="lbl-children-count">👶 عدد الأطفال (اكتب العدد):</label>
-                    <!-- تعديل هنا: تحويل حقل عدد الأطفال إلى إدخال رقمي حر بدلاً من قائمة منسدلة -->
                     <input type="number" id="children" min="0" value="0" oninput="childrenChanged()">
                 </div>
                 <div id="childrenGender" style="display:none; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -477,7 +476,7 @@
                 titleClass: "👥 شيخ و بير و مريد", cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل", sheikh: "شيخ", pir: "بير", murid: "مريد",
                 titleGeo: "🌍 التوزيع الجغرافي (الدول والمدن)", thCountry: "الدولة", thArea: "المنطقة / المدينة", thGeoCount: "عدد المسجلين", txtNoGeo: "لا توجد بيانات جغرافية مسجلة بعد",
                 formHead: "👤 معلوماتك الإحصائية", lblCustomCountry: "🌐 اسم الدولة (اختياري):", lblCustomArea: "🏙️ اسم المنطقة / المدينة (اختياري):", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج (رجل وزوجته = 2)", optMf: "متزوجة (امرأة وزوجها = 2)", optSm: "أعزب", optSf: "عزباء",
-                alertFill: "يرجى إكمال الحقول المطلوبة (الفئة والطبقة والحالة الاجتماعية).", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال المكتوب."
+                alertFill: "يرجى إكمال الحقول المطلوبة (الفئة والطبقة والحالة الاجتماعية).", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال."
             },
             ezd: {
                 dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "𐺡𐺀𐺠", navAdd: "𐺏𐺩𐺋𐺦𐺝𐺌𐺍𐺌𐺢", headerTitle: "𐺧𐺨𐺐𐺡𐺀𐺍𐺦 𐺊𐺀𐺠𐺝𐺨 𐺨𐺏𐺨𐺋𐺨", btnAdd: "𐺋𐺀𐺝𐺍𐺄𐺢𐺀 𐺢𐺀𐺙 𐺣𐺣 𐺢𐺨𐺒𐺀𐺢 ", totalPop: "𐺝𐺥𐺡 𐺧𐺦𐺡𐺣𐺣", male: "👨 𐺡𐺩𐺍", female: "👩 𐺐𐺌𐺢", titleAge: "👨‍👩‍👧 𐺄𐺦𐺡𐺦𐺢 𐺣 𐺏𐺀𐺱𐺦𐺢𐺋", cat: "𐺏𐺀𐺱𐺦𐺢𐺋", m: "𐺡𐺩𐺍", f: "Jin", tot: "𐺄𐺌𐺙𐺀𐺠", child: "👶 𐺏𐺀𐺍𐺥𐺞", young: "🧑 𐺑𐺨𐺃𐺀", men: "👨 𐺡𐺩𐺍", women: "👩 𐺐𐺌𐺢", old: "👴 𐺞𐺀𐺠 𐺣𐺣 𐺂𐺱𐺍", allTot: "𐺄𐺌𐺙𐺀𐺠",
@@ -673,7 +672,6 @@
                 timestamp: Date.now()
             };
 
-            // استخدام طريقة آمنة وبسيطة للإرسال لـ Firebase
             db.ref('records').push(data)
                 .then(() => {
                     document.getElementById('customCountry').value = '';
@@ -831,7 +829,7 @@
 
             document.getElementById('muridMale').innerText = stats.muridM;
             document.getElementById('muridFemale').innerText = stats.muridF;
-            document.getElementById('muridChildren').innerText, stats.muridC;
+            document.getElementById('muridChildren').innerText = stats.muridC; // تم تصحيح الفاصلة هنا
             document.getElementById('muridTotal').innerText = stats.muridM + stats.muridF + stats.muridC;
 
             document.getElementById('classMale').innerText = stats.sheikhM + stats.pirM + stats.muridM;
