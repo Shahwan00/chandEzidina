@@ -264,7 +264,7 @@
                         <span class="nav-text" id="txt-nav-home">الرئيسية</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="navItemAdd">
                     <a class="nav-link" onclick="showForm()">
                         <span>➕</span>
                         <span class="nav-text" id="txt-nav-add">إضافة بيانات</span>
@@ -475,29 +475,29 @@
                 dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "الرئيسية", navAdd: "إضافة بيانات", headerTitle: "الواجهة الإحصائية الإيزيدية", btnAdd: "إضافة بيانات شخص / عائلة", totalPop: "المجموع الكلي المسجل", male: "👨 ذكور", female: "👩 إناث", titleAge: "👨‍👩‍👧 العمر والجنس", cat: "الفئة", m: "ذكر", f: "أنثى", tot: "المجموع", child: "👶 أطفال", young: "🧑 شباب / شابات", men: "👨 رجال", women: "👩 نساء", old: "👴 كبار السن", allTot: "المجموع الكلي",
                 titleClass: "👥 شيخ و بير و مريد", cls: "الطبقة", cm: "ذكر", cf: "أنثى", cc: "أطفال", ctot: "الكل", sheikh: "شيخ", pir: "بير", murid: "مريد",
                 titleGeo: "🌍 التوزيع الجغرافي (الدول والمدن)", thCountry: "الدولة", thArea: "المنطقة / المدينة", thGeoCount: "عدد المسجلين", txtNoGeo: "لا توجد بيانات جغرافية مسجلة بعد",
-                formHead: "👤 معلوماتك الإحصائية", lblCustomCountry: "🌐 اسم الدولة (اختياري):", lblCustomArea: "🏙️ اسم المنطقة / المدينة (اختياري):", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "شكراً لمساهمتك في الإحصائية.", btnBack: "العودة للرئيسية", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج (رجل وزوجته = 2)", optMf: "متزوجة (امرأة وزوجها = 2)", optSm: "أعزب", optSf: "عزباء",
-                alertFill: "يرجى إكمال الحقول المطلوبة (الفئة والطبقة والحالة الاجتماعية).", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال."
+                formHead: "👤 معلوماتك الإحصائية", lblCustomCountry: "🌐 اسم الدولة (اختياري):", lblCustomArea: "🏙️ اسم المنطقة / المدينة (اختياري):", lblPerson: "👤 الفئة العمرية والجنس:", lblClass: "👥 الطبقة الاجتماعية:", lblMarital: "💍 الحالة الاجتماعية:", lblChildrenCount: "👶 عدد الأطفال:", lblBoys: "👦 ذكور:", lblGirls: "👧 إناث:", btnSave: "✅ حفظ البيانات", btnCancel: "إلغاء", successHead: "تم حفظ البيانات بنجاح!", successMsg: "لقد قمت بتسجيل بياناتك مسبقاً ولا يمكنك التسجيل مرة أخرى.", btnBack: "العودة للرئيسية", optPerDef: "اختر الفئة", optClsDef: "اختر الطبقة", optMarDef: "اختر الحالة", optCm: "👦 طفل", optCf: "👧 طفلة", optYm: "🧑 شاب", optYf: "🧑 شابة", optM: "👨 رجل", optW: "👩 امرأة", optOm: "👴 كبير السن", optOf: "👵 كبيرة السن", optSheikh: "شيخ", optPir: "بير", optMurid: "مريد", optMm: "متزوج (رجل وزوجته = 2)", optMf: "متزوجة (امرأة وزوجها = 2)", optSm: "أعزب", optSf: "عزباء",
+                alertFill: "يرجى إكمال الحقول المطلوبة (الفئة والطبقة والحالة الاجتماعية).", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال.", alreadyRegistered: "لقد قمت بتسجيل بياناتك مسبقاً ولا يمكنك إرسال استمارة أخرى من هذا الجهاز."
             },
             ezd: {
                 dir: "rtl", appTitle: "Akademiya Ezidi", navHome: "𐺡𐺀𐺠", navAdd: "𐺏𐺩𐺋𐺦𐺝𐺌𐺍𐺌𐺢", headerTitle: "𐺧𐺨𐺐𐺡𐺀𐺍𐺦 𐺊𐺀𐺠𐺝𐺨 𐺨𐺏𐺨𐺋𐺨", btnAdd: "𐺋𐺀𐺝𐺍𐺄𐺢𐺀 𐺢𐺀𐺙 𐺣𐺣 𐺢𐺨𐺒𐺀𐺢 ", totalPop: "𐺝𐺥𐺡 𐺧𐺦𐺡𐺣𐺣", male: "👨 𐺡𐺩𐺍", female: "👩 𐺐𐺌𐺢", titleAge: "👨‍👩‍👧 𐺄𐺦𐺡𐺦𐺢 𐺣 𐺏𐺀𐺱𐺦𐺢𐺋", cat: "𐺏𐺀𐺱𐺦𐺢𐺋", m: "𐺡𐺩𐺍", f: "Jin", tot: "𐺄𐺌𐺙𐺀𐺠", child: "👶 𐺏𐺀𐺍𐺥𐺞", young: "🧑 𐺑𐺨𐺃𐺀", men: "👨 𐺡𐺩𐺍", women: "👩 𐺐𐺌𐺢", old: "👴 𐺞𐺀𐺠 𐺣𐺣 𐺂𐺱𐺍", allTot: "𐺈𐺦𐺢𐺋 𐺧𐺀𐺡𐺣",
                 titleClass: "👥 𐺒𐺩𐺊, 𐺂𐺨𐺍 𐺣𐺣 𐺡𐺌𐺍𐺨𐺋", cls: "𐺇𐺨𐺢𐺦 𐺨𐺏𐺨𐺋𐺨", cm: "𐺡𐺩𐺍", cf: "𐺐𐺌𐺢", cc: "𐺏𐺀𐺍𐺥𐺝", ctot: "𐺧𐺦𐺡𐺣𐺣", sheikh: "𐺒𐺩𐺊", pir: "𐺂𐺨𐺍", murid: "𐺡𐺌𐺍𐺨𐺋",
                 titleGeo: "🌍 𐺤𐺦𐺠𐺀𐺋 𐺣𐺣 𐺧𐺦𐺍𐺩𐺡", thCountry: "𐺤𐺦𐺠𐺀𐺋", thArea: "𐺧𐺦𐺍𐺩𐺡", thGeoCount: "𐺝𐺥𐺡", txtNoGeo: "𐺧𐺨 𐺤𐺦𐺠𐺀𐺋 𐺱𐺀𐺢 𐺧𐺦𐺍𐺩𐺡 𐺢𐺦𐺧𐺀𐺄𐺌𐺢𐺦 𐺢𐺛𐺨𐺑𐺀𐺢𐺋𐺦𐺢",
                 formHead: "👤 𐺑𐺀𐺢𐺨𐺀𐺍𐺨𐺨𐺢", lblCustomCountry: "🌐 𐺢𐺀𐺛𐺩 𐺤𐺦𐺠𐺀𐺋:", lblCustomArea: "🏙️ 𐺢𐺀𐺛𐺩 𐺧𐺦𐺍𐺩𐺡𐺩:", lblPerson: "👤𐺏𐺀𐺱𐺦𐺢𐺋 𐺣 𐺄𐺦𐺡𐺦𐺢:", lblClass: "👥𐺇𐺨𐺢𐺦 𐺆𐺙𐺀𐺄𐺨:", lblMarital: "💍 𐺏𐺦𐺤𐺀𐺆:", lblChildrenCount: "👶𐺧𐺦𐺐𐺡𐺀𐺍𐺀 𐺏𐺀𐺍𐺥𐺝𐺀𐺢:", lblBoys: "👦𐺞𐺣𐺎:", lblGirls: "👧 𐺞𐺦𐺈:", btnSave: "✅ 𐺋𐺀𐺟𐺍𐺄𐺌𐺢", btnCancel: "𐺄𐺌𐺢𐺀", successHead: "𐺏𐺀𐺟𐺱𐺢 𐺧𐺀𐺄𐺌𐺢 𐺋𐺀𐺟𐺌𐺍𐺄𐺦𐺢!", successMsg: "𐺞𐺦𐺠𐺞 𐺠𐺦𐺠𐺢𐺣𐺢.", btnBack: " 𐺛𐺦𐺟𐺩𐺍𐺦 𐺃𐺀𐺠𐺩 𐺁𐺀𐺍𐺨", optPerDef: "𐺧𐺠𐺁𐺐𐺩𐺍𐺦", optClsDef: "𐺆𐺨𐺢𐺦 𐺧𐺌𐺠𐺁𐺌𐺐𐺩𐺍𐺦 ", optMarDef: "𐺧𐺠𐺁𐺐𐺩𐺍𐺦", optCm: "👦𐺞𐺣𐺍𐺞", optCf: "👧𐺞𐺦𐺈𐺌𐺞", optYm: "🧑 𐺑𐺨𐺁𐺀", optYf: "🧑𐺞𐺦𐺈", optM: "👨 𐺡𐺩𐺍", optW: "👩 𐺐𐺌𐺢", optOm: "👴 𐺞𐺀𐺠", optOf: "👵 𐺂𐺨𐺍", optSheikh: "𐺒𐺩𐺊", optPir: "𐺃𐺨𐺍", optMurid: "𐺡𐺌𐺍𐺨𐺋", optMm: "𐺏𐺦𐺣𐺌𐺆𐺨 (𐺡𐺩𐺍)", optMf: "𐺏𐺦𐺣𐺌𐺆𐺨 (𐺐𐺌𐺢)", optSm: "𐺢𐺀 𐺏𐺦𐺣𐺆𐺨 𐺡𐺩𐺍 ", optSf: "𐺢𐺀 𐺏𐺦𐺣𐺆𐺨 𐺐𐺌𐺢",
-                alertFill: "𐺐𐺌 𐺝𐺦𐺍𐺦𐺡𐺀 𐺊𐺣𐺦𐺍𐺦 𐺄𐺌𐺒𐺄𐺩𐺢 𐺂𐺩𐺣𐺨𐺑𐺄 𐺄𐺌𐺐𐺦 𐺁𐺌𐺝𐺌𐺢.", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال."
+                alertFill: "𐺐𐺌 𐺝𐺦𐺍𐺦𐺡𐺀 𐺊𐺣𐺦𐺍𐺦 𐺄𐺌𐺒𐺄𐺩𐺢 𐺂𐺩𐺣𐺨𐺑𐺄 𐺄𐺌𐺐𐺦 𐺁𐺌𐺝𐺌𐺢.", alertChildrenSum: "مجموع الأولاد والبنات يجب أن يساوي إجمالي عدد الأطفال.", alreadyRegistered: "لقد قمت بتسجيل بياناتك مسبقاً."
             },
             en: {
                 dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Home", navAdd: "Add Data", headerTitle: "Yazidi Population Statistics", btnAdd: "Add Person / Family Data", totalPop: "Total Registered Population", male: "👨 Male", female: "👩 Female", titleAge: "👨‍👩‍👧 Age & Gender", cat: "Category", m: "Male", f: "Female", tot: "Total", child: "👶 Children", young: "🧑 Youth", men: "👨 Men", women: "👩 Women", old: "👴 Elderly", allTot: "Grand Total",
                 titleClass: "👥 Sheikh, Pir & Murid", cls: "Class", cm: "Male", cf: "Female", cc: "Children", ctot: "Total", sheikh: "Sheikh", pir: "Pir", murid: "Murid",
                 titleGeo: "🌍 Geographic Distribution (Countries & Cities)", thCountry: "Country", thArea: "Region / City", thGeoCount: "Registered", txtNoGeo: "No geographic data registered yet",
-                formHead: "👤 Statistical Info", lblCustomCountry: "🌐 Country Name (Optional):", lblCustomArea: "🏙️ Region/Area Name (Optional):", lblPerson: "👤 Age & Gender Group:", lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:", btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "Thank you for your contribution.", btnBack: "Back to Home", optPerDef: "Select Category", optClsDef: "Select Class", optMarDef: "Select Status", optCm: "👦 Boy", optCf: "👧 Girl", optYm: "🧑 Young Man", optYf: "🧑 Young Woman", optM: "👨 Man", optW: "Woman", optOm: "👴 Elderly Man", optOf: "👵 Elderly Woman", optSheikh: "Sheikh", optPir: "Pir", optMurid: "Murid", optMm: "Married Man (+ Spouse = 2)", optMf: "Married Woman (+ Spouse = 2)", optSm: "Single Man", optSf: "Single Woman",
-                alertFill: "Please fill in all required fields.", alertChildrenSum: "The sum of boys and girls must equal total children."
+                formHead: "👤 Statistical Info", lblCustomCountry: "🌐 Country Name (Optional):", lblCustomArea: "🏙️ Region/Area Name (Optional):", lblPerson: "👤 Age & Gender Group:", lblClass: "👥 Social Class:", lblMarital: "💍 Marital Status:", lblChildrenCount: "👶 Number of Children:", lblBoys: "👦 Boys:", lblGirls: "👧 Girls:", btnSave: "✅ Save Info", btnCancel: "Cancel", successHead: "Data Saved Successfully!", successMsg: "You have already registered your data and cannot submit again.", btnBack: "Back to Home", optPerDef: "Select Category", optClsDef: "Select Class", optMarDef: "Select Status", optCm: "👦 Boy", optCf: "👧 Girl", optYm: "🧑 Young Man", optYf: "🧑 Young Woman", optM: "👨 Man", optW: "Woman", optOm: "👴 Elderly Man", optOf: "👵 Elderly Woman", optSheikh: "Sheikh", optPir: "Pir", optMurid: "Murid", optMm: "Married Man (+ Spouse = 2)", optMf: "Married Woman (+ Spouse = 2)", optSm: "Single Man", optSf: "Single Woman",
+                alertFill: "Please fill in all required fields.", alertChildrenSum: "The sum of boys and girls must equal total children.", alreadyRegistered: "You have already registered your data."
             },
             de: {
                 dir: "ltr", appTitle: "Akademiya Ezidi", navHome: "Startseite", navAdd: "Daten hinzufügen", headerTitle: "Jesidische Bevölkerungsstatistik", btnAdd: "Personen- / Familiendaten hinzufügen", totalPop: "Gesamtbevölkerung Registriert", male: "👨 Männer", female: "👩 Frauen", titleAge: "👨‍👩‍👧 Alter & Geschlecht", cat: "Kategorie", m: "Männlich", f: "Weiblich", tot: "Gesamt", child: "👶 Kinder", young: "🧑 Jugendliche", men: "👨 Männer", women: "👩 Frauen", old: "👴 Senioren", allTot: "Gesamtsumme",
                 titleClass: "👥 Scheich, Pir & Murid", cls: "Kaste", cm: "Männlich", cf: "Weiblich", cc: "Kinder", ctot: "Gesamt", sheikh: "Scheich", pir: "Pir", murid: "Murid",
                 titleGeo: "🌍 Geografische Verteilung (Länder & Städte)", thCountry: "Land", thArea: "Region / Stadt", thGeoCount: "Registriert", txtNoGeo: "Noch keine geografischen Daten registriert",
-                formHead: "👤 Statistische Angaben", lblCustomCountry: "🌐 Ländername (Optional):", lblCustomArea: "🏙️ Region/Stadt (Optional):", lblPerson: "👤 Alters- & Geschlechtsgruppe:", lblClass: "👥 Soziale Kaste:", lblMarital: "💍 Familienstand:", lblChildrenCount: "👶 Anzahl der Kinder:", lblBoys: "👦 Jungen:", lblGirls: "👧 Mädchen:", btnSave: "✅ Speichern", btnCancel: "Abbrechen", successHead: "Daten erfolgreich gespeichert!", successMsg: "Vielen Dank für Ihren Beitrag.", btnBack: "Zurück zur Hauptseite", optPerDef: "Kategorie wählen", optClsDef: "Kaste wählen", optMarDef: "Status wählen", optCm: "👦 Junge", optCf: "👧 Mädchen", optYm: "🧑 Junger Mann", optYf: "🧑 Junge Frau", optM: "👨 Mann", optW: "👩 Frau", optOm: "👴 Älterer Mann", optOf: "👵 Ältere Frau", optSheikh: "Scheich", optPir: "Pir", optMurid: "Murid", optMm: "Verheiratet (Mann + Ehefrau = 2)", optMf: "Verheiratet (Frau + Ehemann = 2)", optSm: "Ledig (Mann)", optSf: "Ledig (Frau)",
-                alertFill: "Bitte füllen Sie alle erforderlichen Felder aus.", alertChildrenSum: "Die Summe aus Jungen und Mädchen muss mit der Gesamtzahl der Kinder übereinstimmen."
+                formHead: "👤 Statistische Angaben", lblCustomCountry: "🌐 Ländername (Optional):", lblCustomArea: "🏙️ Region/Stadt (Optional):", lblPerson: "👤 Alters- & Geschlechtsgruppe:", lblClass: "👥 Soziale Kaste:", lblMarital: "💍 Familienstand:", lblChildrenCount: "👶 Anzahl der Kinder:", lblBoys: "👦 Jungen:", lblGirls: "👧 Mädchen:", btnSave: "✅ Speichern", btnCancel: "Abbrechen", successHead: "Daten erfolgreich gespeichert!", successMsg: "Sie haben Ihre Daten bereits registriert und können sich nicht erneut eintragen.", btnBack: "Zurück zur Hauptseite", optPerDef: "Kategorie wählen", optClsDef: "Kaste wählen", optMarDef: "Status wählen", optCm: "👦 Junge", optCf: "👧 Mädchen", optYm: "🧑 Junger Mann", optYf: "🧑 Junge Frau", optM: "👨 Mann", optW: "👩 Frau", optOm: "👴 Älterer Mann", optOf: "👵 Ältere Frau", optSheikh: "Scheich", optPir: "Pir", optMurid: "Murid", optMm: "Verheiratet (Mann + Ehefrau = 2)", optMf: "Verheiratet (Frau + Ehemann = 2)", optSm: "Ledig (Mann)", optSf: "Ledig (Frau)",
+                alertFill: "Bitte füllen Sie alle erforderlichen Felder aus.", alertChildrenSum: "Die Summe aus Jungen und Mädchen muss mit der Gesamtzahl der Kinder übereinstimmen.", alreadyRegistered: "Sie haben Ihre Daten bereits registriert."
             }
         };
 
@@ -603,6 +603,11 @@
         }
 
         function showForm() {
+            const t = translations[currentLang] || translations['ar'];
+            if (localStorage.getItem('ezidi_registered') === 'true') {
+                alert(t.alreadyRegistered);
+                return;
+            }
             document.getElementById('homeSection').style.display = 'none';
             document.getElementById('successSection').style.display = 'none';
             document.getElementById('formSection').style.display = 'block';
@@ -612,6 +617,7 @@
             document.getElementById('formSection').style.display = 'none';
             document.getElementById('successSection').style.display = 'none';
             document.getElementById('homeSection').style.display = 'block';
+            checkRegistrationStatus();
         }
 
         function marriageChanged() {
@@ -638,7 +644,24 @@
             }
         }
 
+        function checkRegistrationStatus() {
+            if (localStorage.getItem('ezidi_registered') === 'true') {
+                const addBtn = document.getElementById('addButton');
+                if (addBtn) addBtn.style.display = 'none';
+                const navItemAdd = document.getElementById('navItemAdd');
+                if (navItemAdd) navItemAdd.style.display = 'none';
+            }
+        }
+
         function addFamily() {
+            const t = translations[currentLang] || translations['ar'];
+
+            if (localStorage.getItem('ezidi_registered') === 'true') {
+                alert(t.alreadyRegistered);
+                showHome();
+                return;
+            }
+
             const person = document.getElementById('person').value;
             const classType = document.getElementById('classType').value;
             const marital = document.getElementById('marital').value;
@@ -647,8 +670,6 @@
             const children = parseInt(document.getElementById('children').value) || 0;
             const boys = parseInt(document.getElementById('boys').value) || 0;
             const girls = parseInt(document.getElementById('girls').value) || 0;
-
-            const t = translations[currentLang] || translations['ar'];
 
             if (!person || !classType || !marital) {
                 alert(t.alertFill);
@@ -674,6 +695,9 @@
 
             db.ref('records').push(data)
                 .then(() => {
+                    localStorage.setItem('ezidi_registered', 'true');
+                    checkRegistrationStatus();
+
                     document.getElementById('customCountry').value = '';
                     document.getElementById('customArea').value = '';
                     document.getElementById('person').value = '';
@@ -829,7 +853,7 @@
 
             document.getElementById('muridMale').innerText = stats.muridM;
             document.getElementById('muridFemale').innerText = stats.muridF;
-            document.getElementById('muridChildren').innerText = stats.muridC; // تم تصحيح الفاصلة هنا
+            document.getElementById('muridChildren').innerText = stats.muridC;
             document.getElementById('muridTotal').innerText = stats.muridM + stats.muridF + stats.muridC;
 
             document.getElementById('classMale').innerText = stats.sheikhM + stats.pirM + stats.muridM;
@@ -841,6 +865,7 @@
         });
 
         changeLanguage('ezd');
+        checkRegistrationStatus();
     </script>
 </body>
-</html> 
+</html>
